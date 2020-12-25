@@ -8,4 +8,4 @@ Hey there! I'm Phoomparin Mano ([@heypoom](https://heypoom.com)). This is my per
 - Email: [poom@hey.com](mailto:poom@hey.com)
 - Twitter: [@heypoom](https://twitter.com/heypoom)
 - GitHub: [@heypoom](https://github.com/heypoom)
-- Keybase: [@phoomparin](https://keybase.com/phoomparin)
+- Keybase: [@phoomparin](https://keybase.io/phoomparin)
