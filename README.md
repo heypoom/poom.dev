@@ -1,4 +1,4 @@
-# println!("Hey, I'm Poom -- nice to meet you!")
+# `println!("Hey, I'm Poom -- nice to meet you!")`
 
 Hey there! I'm Phoomparin Mano ([@heypoom](https://heypoom.com)). This is my personal "Oasis" or "Garden" of sorts -- where I'll share my side projects, my stories, my thoughts and what I've learned in one place. Each piece of the garden will keep on expanding, so enjoy! :)
 
