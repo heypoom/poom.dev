@@ -860,6 +860,13 @@ babel-plugin-transform-goober@^1.2.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-goober/-/babel-plugin-transform-goober-1.2.0.tgz#3ccb93a82242a353dca95f4ba1c9e575cf37395e"
   integrity sha512-+Dgb2RBYWBwXTRSM1M6W/L9ObczThwCClrwKNZhO6/MsvrzSSbPSSI7OetJ65tuBGVfChHhz7eIFp2x8t/TU+w==
 
+babel-plugin-twin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-twin/-/babel-plugin-twin-1.0.2.tgz#7ed6622d2a6268fdb76cad414a1f2486df59dc96"
+  integrity sha512-723f0tizypoy3Fn9ZAuidTCQ+sKh6sn/jX+Cjj3Pk148ew/hUa+fRUyqAPKACIFaVNqRFnZgI1DoNhNMDL+6QA==
+  dependencies:
+    "@babel/template" "^7.12.13"
+
 bail@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/bail/-/bail-1.0.5.tgz#b6fa133404a392cbc1f8c4bf63f5953351e7a776"
