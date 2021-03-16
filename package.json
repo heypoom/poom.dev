@@ -17,18 +17,25 @@
     "@tailwindcss/line-clamp": "^0.2.0",
     "@tailwindcss/typography": "^0.4.0",
     "autoprefixer": "^10.2.5",
+    "goober": "^2.0.33",
+    "goober-autoprefixer": "^1.2.1",
     "next": "10.0.9",
     "postcss": "^8.2.8",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "sass": "^1.32.8",
     "tailwindcss": "^2.0.3",
     "twin.macro": "^2.3.0"
   },
   "devDependencies": {
+    "@agney/babel-plugin-goober-css-prop": "^0.0.1",
     "@babel/plugin-transform-react-jsx": "^7.12.17",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
-    "babel-plugin-macros": "^3.0.1"
+    "babel-plugin-macros": "^3.0.1",
+    "babel-plugin-transform-goober": "^1.2.0",
+    "stylelint": "^13.12.0",
+    "stylelint-config-standard": "^21.0.0"
   }
 }

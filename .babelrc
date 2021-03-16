@@ -2,5 +2,7 @@
   "presets": ["next/babel", "@emotion/babel-preset-css-prop"],
   "plugins": [
     "babel-plugin-macros"
+    // "@agney/babel-plugin-goober-css-prop",
+    // ["babel-plugin-transform-goober", { "name": "_styled" }]
   ]
 }
