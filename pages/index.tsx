@@ -15,12 +15,12 @@ const bgByVariantMap: Record<ButtonVariant, TwStyle> = {
 
 const Button = styled.button<ButtonProps>(({ variant }) => [
   variant && bgByVariantMap[variant],
-  tw`px-5 py-2 text-white text-center`,
+  tw`px-5 py-2 text-white text-center focus:outline-none`,
 ])
 
 const Home: React.FC = () => (
   <main>
-    <Banner tw="border-purple-600 border-b-8 text-3xl">
+    <Banner tw="border-purple-600 border-b-4 text-3xl font-semibold">
       Delicious Truffles
     </Banner>
 
