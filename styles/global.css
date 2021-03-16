@@ -1,7 +1,1 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.card-container {
-  @apply bg-red-600 text-white p-10;
-}
