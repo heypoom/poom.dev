@@ -2,16 +2,16 @@ import { Button } from '@ui/button'
 import React from 'react'
 import tw, { styled, TwStyle } from 'twin.macro'
 
-const Banner = tw.div`p-5 bg-purple-500 text-white text-2xl shadow-lg`
+const Banner = tw.header`p-5 bg-purple-500 text-white text-2xl shadow-lg`
 
 const Home: React.FC = () => (
-  <main>
+  <div>
     <Banner tw="border-purple-600 border-b-4 text-3xl font-semibold fixed w-full">
       Delicious Truffles
     </Banner>
 
-    <div tw="min-h-screen flex items-center bg-gray-900">
-      <div tw="px-8 py-8 max-w-3xl mx-auto space-y-6 shadow-lg bg-gray-100 mt-20">
+    <main tw="min-h-screen flex items-center bg-gray-900">
+      <section tw="px-8 py-8 max-w-3xl mx-auto space-y-6 shadow-lg bg-gray-100 mt-20">
         <h1 tw="text-5xl font-bold text-gray-900">Hey, There!</h1>
 
         <p tw="font-light text-gray-500">
@@ -41,9 +41,9 @@ const Home: React.FC = () => (
             Delete
           </Button>
         </div>
-      </div>
-    </div>
-  </main>
+      </section>
+    </main>
+  </div>
 )
 
 export default Home
