@@ -24,7 +24,7 @@ const Home: React.FC = () => (
 
         <div tw="flex space-x-3">
           <Button variant="primary" tw="shadow-lg">
-            Keep
+            Open
           </Button>
 
           <Fadeable />

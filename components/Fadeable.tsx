@@ -7,7 +7,11 @@ export function Fadeable() {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(!isOpen)}>Crash</Button>
+      <Button
+        onClick={() => setIsOpen(!isOpen)}
+        tw="bg-blue-500 hover:bg-blue-600 focus:ring-blue-300 focus:ring-opacity-30 shadow-lg">
+        Save
+      </Button>
 
       <Transition
         show={isOpen}
