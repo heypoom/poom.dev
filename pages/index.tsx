@@ -1,6 +1,8 @@
 import React from 'react'
 import tw from 'twin.macro'
+
 import { Button } from '@ui/button'
+import { BottomBanner } from '@ui/bottom-banner'
 
 import { Fadeable } from 'components/Fadeable'
 
@@ -34,6 +36,8 @@ const Home: React.FC = () => (
           </Button>
         </div>
       </section>
+
+      <BottomBanner />
     </main>
   </div>
 )
