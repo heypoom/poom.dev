@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@ui/box": ["components/Box"]
+      "@ui/*": ["components/ui/*"]
     },
   },
   "include": ["*.d.ts", "**/*.ts", "**/*.tsx"],
