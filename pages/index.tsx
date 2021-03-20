@@ -15,7 +15,7 @@ const Home: React.FC = () => (
     </Banner>
 
     <main tw="min-h-screen flex items-center justify-center bg-gray-100">
-      <section tw="px-8 py-8 max-w-3xl mx-8 space-y-6 bg-white mt-20 shadow-2xl">
+      <section tw="px-8 py-8 max-w-3xl mx-8 space-y-7 bg-white mt-20 shadow-2xl">
         <h1 tw="text-4xl font-bold text-gray-900">Hey. I'm Poom.</h1>
 
         <p tw="font-light text-gray-500">
@@ -24,7 +24,7 @@ const Home: React.FC = () => (
           porttitor viverra dui libero id quam. Duis eu nulla in ipsum luctus
         </p>
 
-        <div tw="flex space-x-3">
+        <div tw="flex space-x-4">
           <Button variant="primary" tw="shadow-lg">
             Open
           </Button>
