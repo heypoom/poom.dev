@@ -4,7 +4,7 @@ import { styled } from "goober"
 import Head from "next/head"
 
 const Backdrop = tw.main`
-  flex flex-col items-center justify-center bg-purple-500
+  flex flex-col items-center justify-center bg-gradient-to-tr from-neonblue to-lavender
   min-h-screen px-2 text-white
 `
 
