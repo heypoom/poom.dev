@@ -9,8 +9,8 @@ const Backdrop = tw.main`
 `
 
 const Title = tw.h1`
-  text-center px-2 text-white my-0
-  text-2xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-8xl
+  text-center px-2 text-white my-0 font-medium
+  text-2xl xs:text-4xl sm:text-5xl md:text-6xl
 `
 
 const Link: React.FC<{ href: string }> = ({ href, children }) => (
@@ -36,15 +36,25 @@ const Landing = () => {
         />
       </Head>
 
-      <Title tw="md:mb-4">Phoomparin Mano</Title>
+      <div tw="flex flex-col shadow-carbon mx-3 rounded-lg">
+        <div tw="flex bg-blackrussian px-3 py-2 space-x-2 rounded-t-lg">
+          <div tw="w-3 h-3 bg-red-500 rounded-full"></div>
+          <div tw="w-3 h-3 bg-yellow-500 rounded-full"></div>
+          <div tw="w-3 h-3 bg-green-500 rounded-full"></div>
+        </div>
 
-      <p tw="text-xl">@heypoom</p>
+        <div tw="flex flex-col items-center justify-center bg-charade px-5 py-8 rounded-b-lg md:py-12 md:px-14">
+          <Title tw="md:mb-4">Phoomparin Mano</Title>
 
-      <section tw="flex space-x-2">
-        <Link href="https://github.com/heypoom">GitHub</Link>
-        <Link href="https://facebook.com/phoomparin.mano">Facebook</Link>
-        <Link href="https://twitter.com/heypoom">Twitter</Link>
-      </section>
+          <p tw="text-xl">@heypoom</p>
+
+          <section tw="flex space-x-2">
+            <Link href="https://github.com/heypoom">GitHub</Link>
+            <Link href="https://facebook.com/phoomparin.mano">Facebook</Link>
+            <Link href="https://twitter.com/heypoom">Twitter</Link>
+          </section>
+        </div>
+      </div>
     </Backdrop>
   )
 }

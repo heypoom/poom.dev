@@ -10,6 +10,15 @@ module.exports = {
         lavender: {
           DEFAULT: "#ee99e5",
         },
+        charade: {
+          DEFAULT: "#282a36",
+        },
+        blackrussian: {
+          DEFAULT: "#21232d",
+        },
+      },
+      boxShadow: {
+        carbon: "rgb(0 0 0 / 55%) 0px 20px 68px",
       },
     },
     screens: {
