@@ -2,7 +2,16 @@ module.exports = {
   purge: [],
   darkMode: "media",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        neonblue: {
+          DEFAULT: "#5a61f9",
+        },
+        lavender: {
+          DEFAULT: "#ee99e5",
+        },
+      },
+    },
     screens: {
       xs: "320px",
       sm: "576px",
