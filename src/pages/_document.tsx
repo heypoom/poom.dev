@@ -23,7 +23,7 @@ class MyDocument extends Document<Props> {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <style
             id={"_goober"}
