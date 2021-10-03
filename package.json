@@ -1,0 +1,11 @@
+{
+	"dependencies": {
+		"next": "^11.1.2",
+		"next-plugin-preact": "^3.0.6",
+		"preact": "^10.5.14",
+		"react": "npm:@preact/compat@^17.0.2",
+		"react-dom": "npm:@preact/compat@^17.0.2",
+		"react-ssr-prepass": "npm:preact-ssr-prepass@^1.2.0",
+		"preact-render-to-string": "^5.1.19"
+	}
+}
