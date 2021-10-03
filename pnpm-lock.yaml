@@ -1,7 +1,10 @@
 lockfileVersion: 5.3
 
 specifiers:
-  husky: ^7.0.2
+  "@types/node": ^16.10.2
+  "@types/react": ^17.0.26
+  "@types/react-dom": ^17.0.9
+  husky: ^7.0.0
   next: ^11.1.2
   next-plugin-preact: ^3.0.6
   preact: ^10.5.14
@@ -11,9 +14,10 @@ specifiers:
   react: npm:@preact/compat@^17.0.2
   react-dom: npm:@preact/compat@^17.0.2
   react-ssr-prepass: npm:preact-ssr-prepass@^1.2.0
+  typescript: ^4.4.3
 
 dependencies:
-  next: 11.1.2_82cb9fd171153d2c613334009d54eb8b
+  next: 11.1.2_e1d77c2f304313d564822b8b42e94130
   next-plugin-preact: 3.0.6_14644d2d255da7043d3e3b31b2fd14fa
   preact: 10.5.14
   preact-render-to-string: 5.1.19_preact@10.5.14
@@ -22,9 +26,13 @@ dependencies:
   react-ssr-prepass: /preact-ssr-prepass/1.2.0_preact@10.5.14
 
 devDependencies:
+  "@types/node": 16.10.2
+  "@types/react": 17.0.26
+  "@types/react-dom": 17.0.9
   husky: 7.0.2
   prettier: 2.4.1
   pretty-quick: 3.1.1_prettier@2.4.1
+  typescript: 4.4.3
 
 packages:
   /@babel/code-frame/7.12.11:
@@ -283,7 +291,7 @@ packages:
       "@prefresh/core": 1.3.2_preact@10.5.14
       "@prefresh/utils": 1.1.1
       "@prefresh/webpack": 3.3.2_8ddefae582772128c85c3648ada8b736
-      next: 11.1.2_82cb9fd171153d2c613334009d54eb8b
+      next: 11.1.2_e1d77c2f304313d564822b8b42e94130
       preact: 10.5.14
     dev: false
 
@@ -337,7 +345,40 @@ packages:
       {
         integrity: sha512-zCclL4/rx+W5SQTzFs9wyvvyCwoK9QtBpratqz2IYJ3O8Umrn0m3nsTv0wQBk9sRGpvUe9CwPDrQFB10f1FIjQ==,
       }
-    dev: false
+
+  /@types/prop-types/15.7.4:
+    resolution:
+      {
+        integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==,
+      }
+    dev: true
+
+  /@types/react-dom/17.0.9:
+    resolution:
+      {
+        integrity: sha512-wIvGxLfgpVDSAMH5utdL9Ngm5Owu0VsGmldro3ORLXV8CShrL8awVj06NuEXFQ5xyaYfdca7Sgbk/50Ri1GdPg==,
+      }
+    dependencies:
+      "@types/react": 17.0.26
+    dev: true
+
+  /@types/react/17.0.26:
+    resolution:
+      {
+        integrity: sha512-MXxuXrH2xOcv5cp/su4oz69dNQnSA90JjFw5HBd5wifw6Ihi94j7dRJm7qNsB30tnruXSCPc9qmlhGop4nh9Hw==,
+      }
+    dependencies:
+      "@types/prop-types": 15.7.4
+      "@types/scheduler": 0.16.2
+      csstype: 3.0.9
+    dev: true
+
+  /@types/scheduler/0.16.2:
+    resolution:
+      {
+        integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==,
+      }
+    dev: true
 
   /anser/1.4.9:
     resolution:
@@ -904,6 +945,13 @@ packages:
       cssnano-preset-simple: 3.0.0_postcss@8.2.15
       postcss: 8.2.15
     dev: false
+
+  /csstype/3.0.9:
+    resolution:
+      {
+        integrity: sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==,
+      }
+    dev: true
 
   /data-uri-to-buffer/3.0.1:
     resolution:
@@ -1828,7 +1876,7 @@ packages:
       - webpack
     dev: false
 
-  /next/11.1.2_82cb9fd171153d2c613334009d54eb8b:
+  /next/11.1.2_e1d77c2f304313d564822b8b42e94130:
     resolution:
       {
         integrity: sha512-azEYL0L+wFjv8lstLru3bgvrzPvK0P7/bz6B/4EJ9sYkXeW8r5Bjh78D/Ol7VOg0EIPz0CXoe72hzAlSAXo9hw==,
@@ -1882,7 +1930,7 @@ packages:
       os-browserify: 0.3.0
       p-limit: 3.1.0
       path-browserify: 1.0.1
-      pnp-webpack-plugin: 1.6.4
+      pnp-webpack-plugin: 1.6.4_typescript@4.4.3
       postcss: 8.2.15
       process: 0.11.10
       querystring-es3: 0.2.1
@@ -2172,14 +2220,14 @@ packages:
       }
     dev: false
 
-  /pnp-webpack-plugin/1.6.4:
+  /pnp-webpack-plugin/1.6.4_typescript@4.4.3:
     resolution:
       {
         integrity: sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==,
       }
     engines: { node: ">=6" }
     dependencies:
-      ts-pnp: 1.2.0
+      ts-pnp: 1.2.0_typescript@4.4.3
     transitivePeerDependencies:
       - typescript
     dev: false
@@ -2800,7 +2848,7 @@ packages:
       punycode: 2.1.1
     dev: false
 
-  /ts-pnp/1.2.0:
+  /ts-pnp/1.2.0_typescript@4.4.3:
     resolution:
       {
         integrity: sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==,
@@ -2811,6 +2859,8 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+    dependencies:
+      typescript: 4.4.3
     dev: false
 
   /tty-browserify/0.0.0:
@@ -2831,6 +2881,15 @@ packages:
       }
     engines: { node: ">=8" }
     dev: false
+
+  /typescript/4.4.3:
+    resolution:
+      {
+        integrity: sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA==,
+      }
+    engines: { node: ">=4.2.0" }
+    hasBin: true
+    dev: true
 
   /unbox-primitive/1.0.1:
     resolution:
