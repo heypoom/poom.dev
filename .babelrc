@@ -1,0 +1,9 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    "@agney/babel-plugin-goober-css-prop",
+    ["transform-goober", { "name": "styled" }],
+    "twin",
+    "macros"
+  ]
+}

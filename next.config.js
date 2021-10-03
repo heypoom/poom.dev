@@ -1,5 +1,8 @@
-const withPreact = require("next-plugin-preact");
+// @ts-check
 
-module.exports = withPreact({
-  webpack5: true,
-});
+/** @type {import('next').NextConfig} */
+const config = {}
+
+const withPreact = require("next-plugin-preact")
+
+module.exports = withPreact(config)
