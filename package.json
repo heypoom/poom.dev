@@ -5,6 +5,7 @@
   "devDependencies": {
     "@agney/babel-plugin-goober-css-prop": "^0.0.1",
     "@babel/core": "^7.15.5",
+    "@next/bundle-analyzer": "^11.1.2",
     "@types/node": "^16.10.2",
     "@types/react": "^17.0.26",
     "@types/react-dom": "^17.0.9",
@@ -24,7 +25,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "analyze": "ANALYZE=true next build"
   },
   "repository": {
     "type": "git",

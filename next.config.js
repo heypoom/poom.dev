@@ -5,4 +5,8 @@ const config = {}
 
 const withPreact = require("next-plugin-preact")
 
-module.exports = withPreact(config)
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+})
+
+module.exports = withBundleAnalyzer(withPreact(config))
