@@ -1,5 +1,7 @@
+import React from "react"
 import tw from "twin.macro"
 import { styled } from "goober"
+import Head from "next/head"
 
 const Backdrop = tw.main`
   flex flex-col items-center justify-center bg-purple-500
@@ -25,6 +27,15 @@ const Link: React.FC<{ href: string }> = ({ href, children }) => (
 const Landing = () => {
   return (
     <Backdrop tw="space-y-5">
+      <Head>
+        <title>Phoomparin Mano ﹒ Software Developer</title>
+
+        <meta
+          name="description"
+          content="Phoomparin Mano is a developer who loves TypeScript and the Terminal. He's currently the Head of Platform at BRIKL."
+        />
+      </Head>
+
       <Title tw="md:mb-4">Phoomparin Mano</Title>
 
       <p tw="text-xl">@heypoom</p>
