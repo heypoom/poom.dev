@@ -26,7 +26,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "BUNDLE_ANALYZE=browser ANALYZE=true next build",
+    "analyze:server": "BUNDLE_ANALYZE=server ANALYZE=true next build"
   },
   "repository": {
     "type": "git",
