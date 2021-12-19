@@ -57,7 +57,9 @@
     "next": "^12.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "three": "^0.135.0"
+    "react-error-boundary": "^3.1.4",
+    "three": "^0.135.0",
+    "three-stdlib": "^2.6.1"
   },
   "husky": {
     "hooks": {
