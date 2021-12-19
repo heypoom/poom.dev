@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from "react"
-import { Mesh, Vector3 } from "three"
-import { Canvas, MeshStandardMaterialProps, useFrame } from "@react-three/fiber"
-import { useSpring, a, AnimatedComponent } from "@react-spring/three"
+import { Mesh } from "three"
+import { Canvas, Vector3, useFrame } from "@react-three/fiber"
+import { useSpring, a } from "@react-spring/three"
 
 import tw from "twin.macro"
 
