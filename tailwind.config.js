@@ -3,6 +3,12 @@ module.exports = {
   darkMode: "media",
   theme: {
     extend: {
+      fontFamily: {
+        body: `Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+				"Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+				sans-serif`,
+      },
+
       colors: {
         neonblue: {
           DEFAULT: "#5a61f9",
