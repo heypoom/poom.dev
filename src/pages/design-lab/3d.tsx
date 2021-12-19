@@ -1,7 +1,7 @@
-import { useRef, useState } from "react"
+import { FC, useRef, useState } from "react"
 import { Mesh, Vector3 } from "three"
-import { Canvas, useFrame } from "@react-three/fiber"
-import { useSpring, animated } from "@react-spring/three"
+import { Canvas, MeshStandardMaterialProps, useFrame } from "@react-three/fiber"
+import { useSpring, a, AnimatedComponent } from "@react-spring/three"
 
 import tw from "twin.macro"
 
@@ -19,10 +19,12 @@ function Box(props: BoxProps) {
   const { color = "orange", hoverColor = "hotpink", position } = props
 
   const meshRef = useRef<Mesh>()
-
   const [hovering, hover] = useState(false)
 
-  const { scale } = useSpring({ scale: hovering ? 1.5 : 1 })
+  const values = useSpring({
+    scale: hovering ? 1.5 : 1,
+    color: hovering ? hoverColor : color,
+  })
 
   useFrame(() => {
     if (!meshRef.current) return
@@ -32,16 +34,16 @@ function Box(props: BoxProps) {
   })
 
   return (
-    <animated.mesh
+    <a.mesh
       ref={meshRef}
       position={position}
-      scale={scale}
+      scale={values.scale}
       onPointerOver={() => hover(true)}
       onPointerLeave={() => hover(false)}
     >
       <icosahedronGeometry args={[1.25, 0]} />
-      <meshStandardMaterial color={hovering ? hoverColor : color} />
-    </animated.mesh>
+      <a.meshStandardMaterial color={values.color} />
+    </a.mesh>
   )
 }
 
