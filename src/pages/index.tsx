@@ -1,7 +1,7 @@
 import React from "react"
-import tw from "twin.macro"
-import { styled } from "goober"
 import Head from "next/head"
+
+import tw from "twin.macro"
 
 const Backdrop = tw.main`
   flex flex-col items-center justify-center bg-gradient-to-tr from-neonblue to-lavender

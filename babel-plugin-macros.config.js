@@ -1,9 +1,8 @@
 module.exports = {
   twin: {
     config: "tailwind.config.js",
-    preset: "goober",
-    autoCssProp: true,
+    preset: "emotion",
     hasSuggestions: true,
-    dataTwProp: false,
+    dataTwProp: true,
   },
 }
