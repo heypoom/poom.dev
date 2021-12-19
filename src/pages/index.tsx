@@ -17,7 +17,7 @@ const Title = tw.h1`
 
 const Link: React.FC<{ href: string }> = ({ href, children }) => (
   <a
-    tw="text-white text-xs xs:text-sm sm:text-lg"
+    tw="text-white text-xs xs:text-sm sm:text-lg underline leading-loose!"
     target="_blank"
     rel="noreferrer"
     href={href}
@@ -41,7 +41,7 @@ const Landing = () => {
       <TerminalWindow>
         <Title tw="md:mb-4">Phoomparin Mano</Title>
 
-        <p tw="text-xl">@heypoom</p>
+        <p tw="text-xl leading-loose">@heypoom</p>
 
         <section tw="flex space-x-2">
           <Link href="https://github.com/heypoom">GitHub</Link>
