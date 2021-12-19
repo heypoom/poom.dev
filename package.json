@@ -45,6 +45,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@headlessui/react": "^1.4.2",
     "@react-three/fiber": "^7.0.24",
     "framer-motion": "^5.5.5",
     "jotai": "^1.4.8",
