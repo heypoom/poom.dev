@@ -1,10 +1,8 @@
 import { useRef, useState } from "react"
-import { Mesh } from "three"
-import { motion } from "framer-motion/three"
-import { Canvas, useFrame, Vector3 } from "@react-three/fiber"
+import { Mesh, Vector3 } from "three"
+import { Canvas, useFrame } from "@react-three/fiber"
 
 import tw from "twin.macro"
-import { useMotionValue } from "framer-motion"
 
 const Backdrop = tw.div`
  bg-gray-900 min-h-screen w-full
@@ -19,27 +17,30 @@ interface BoxProps {
 function Box(props: BoxProps) {
   const { color = "orange", hoverColor = "hotpink", position } = props
 
+  const meshRef = useRef<Mesh>()
+
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
 
-  const rotation = useMotionValue(0)
-
   useFrame((state, delta) => {
-    rotation.set(rotation.get() + 0.01)
+    if (!meshRef.current) return
+
+    meshRef.current.rotation.x += 0.01
+    meshRef.current.rotation.z += 0.01
   })
 
   return (
-    <motion.mesh
+    <mesh
+      ref={meshRef}
       position={position}
-      rotation={[rotation, 1, rotation]}
+      scale={hovered ? 1.5 : 1}
       onClick={() => click(!clicked)}
       onPointerOver={() => hover(true)}
       onPointerLeave={() => hover(false)}
-      whileHover={{ scale: 2.5 }}
     >
-      <icosahedronGeometry args={[1, 0]} />
+      <icosahedronGeometry args={[1.25, 0]} />
       <meshStandardMaterial color={hovered ? hoverColor : color} />
-    </motion.mesh>
+    </mesh>
   )
 }
 
