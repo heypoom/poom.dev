@@ -7,9 +7,9 @@ export const TerminalWindow: React.FC = ({ children }) => {
     <div tw="flex flex-col shadow-carbon mx-3 rounded-lg">
       <div tw="bg-blackrussian px-3 py-2 rounded-t-lg">
         <div tw="flex space-x-2">
-          <div tw="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div tw="w-3 h-3 bg-yellow-500 rounded-full"></div>
-          <div tw="w-3 h-3 bg-green-500 rounded-full"></div>
+          <div tw="w-3 h-3 bg-red-500 rounded-full" />
+          <div tw="w-3 h-3 bg-yellow-500 rounded-full" />
+          <div tw="w-3 h-3 bg-green-500 rounded-full" />
         </div>
       </div>
 
