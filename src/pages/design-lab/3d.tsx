@@ -21,11 +21,10 @@ function Box(props: BoxProps) {
   const meshRef = useRef<Mesh>()
 
   const [hovering, hover] = useState(false)
-  const [clicked, click] = useState(false)
 
   const { scale } = useSpring({ scale: hovering ? 1.5 : 1 })
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (!meshRef.current) return
 
     meshRef.current.rotation.x += 0.01
@@ -37,7 +36,6 @@ function Box(props: BoxProps) {
       ref={meshRef}
       position={position}
       scale={scale}
-      onClick={() => click(!clicked)}
       onPointerOver={() => hover(true)}
       onPointerLeave={() => hover(false)}
     >
