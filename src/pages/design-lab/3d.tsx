@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { Mesh } from "three"
 import { motion } from "framer-motion/three"
-import { Canvas, MeshProps, useFrame, Vector3 } from "@react-three/fiber"
+import { Canvas, useFrame, Vector3 } from "@react-three/fiber"
 
 import tw from "twin.macro"
 import { useMotionValue } from "framer-motion"
@@ -38,10 +38,7 @@ function Box(props: BoxProps) {
       whileHover={{ scale: 2.5 }}
     >
       <icosahedronGeometry args={[1, 0]} />
-      <motion.meshStandardMaterial
-        color={hovered ? hoverColor : color}
-        animate={{ color: hovered ? hoverColor : color }}
-      />
+      <meshStandardMaterial color={hovered ? hoverColor : color} />
     </motion.mesh>
   )
 }
@@ -49,7 +46,11 @@ function Box(props: BoxProps) {
 const ThreeView = () => {
   return (
     <Backdrop>
-      <Canvas tw="w-full min-h-screen" dpr={2}>
+      <Canvas
+        tw="w-full min-h-screen"
+        dpr={[1, 2]}
+        gl={{ powerPreference: "high-performance" }}
+      >
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -10, -10]} />
