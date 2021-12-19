@@ -7,9 +7,16 @@ const Backdrop = tw.main`
   min-h-screen px-2 text-white
 `
 
+const Circle = tw.div`
+	border-solid border-4 rounded-full shadow-xl
+	border-white w-14 h-14
+`
+
+const Section = tw.section`flex space-x-4`
+
 const ColorLab = () => {
   return (
-    <section>
+    <div>
       <Head>
         <title>Phoomparin Mano ﹒ Software Developer</title>
 
@@ -20,49 +27,48 @@ const ColorLab = () => {
       </Head>
 
       <Backdrop tw="space-y-5 shadow-xl z-20 min-h-[80vh]">
-        <div tw="flex space-x-4">
-          <div tw="border-solid border-4 bg-blackrussian w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-white w-14 h-14 border-blackrussian rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-transparent w-14 h-14 border-blackrussian rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-transparent w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-red-400 w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-green-400 w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-blue-400 w-14 h-14 border-white rounded-full shadow-xl" />
+        <Section>
+          <Circle tw="bg-blackrussian" />
+          <Circle tw="bg-white border-blackrussian" />
+          <Circle tw="bg-transparent border-blackrussian" />
+          <Circle tw="bg-transparent" />
+          <Circle tw="bg-red-400" />
+          <Circle tw="bg-green-400" />
+          <Circle tw="bg-blue-400" />
 
-          <div tw="border-solid border-4 bg-gradient-to-tr from-neonblue to-lavender w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-gradient-to-tr from-skylight to-lavender-100 w-14 h-14 border-white rounded-full shadow-xl" />
-        </div>
+          <Circle tw="bg-gradient-to-tr from-neonblue to-lavender" />
+          <Circle tw="bg-gradient-to-tr from-skylight to-lavender-100" />
+        </Section>
       </Backdrop>
 
-      <section tw="flex flex-col items-center justify-center min-h-[50vh] bg-blackrussian z-10">
-        <div tw="flex space-x-4">
-          <div tw="border-solid border-4 bg-transparent w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-white w-14 h-14 border-blackrussian rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-transparent w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-red-400 w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-green-400 w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-blue-400 w-14 h-14 border-white rounded-full shadow-xl" />
+      <div tw="flex flex-col items-center justify-center min-h-[50vh] bg-blackrussian z-10">
+        <Section>
+          <Circle tw="bg-transparent" />
+          <Circle tw="bg-white border-blackrussian" />
+          <Circle tw="bg-transparent" />
+          <Circle tw="bg-red-400" />
+          <Circle tw="bg-green-400" />
+          <Circle tw="bg-blue-400" />
 
-          <div tw="border-solid border-4 bg-gradient-to-tr from-neonblue to-lavender w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-gradient-to-tr from-skylight to-lavender-100 w-14 h-14 border-white rounded-full shadow-xl" />
-        </div>
-      </section>
+          <Circle tw="bg-gradient-to-tr from-neonblue to-lavender" />
+          <Circle tw="bg-gradient-to-tr from-skylight to-lavender-100" />
+        </Section>
+      </div>
 
-      <section tw="flex flex-col items-center justify-center min-h-[25vh] bg-red-400 z-10">
-        <div tw="flex space-x-4">
-          <div tw="border-solid border-4 bg-transparent w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-white w-14 h-14 border-blackrussian rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-transparent w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-red-400 w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-green-400 w-14 h-14 border-white rounded-full shadow-xl" />
-          <div tw="border-solid border-4 bg-blue-400 w-14 h-14 border-white rounded-full shadow-xl" />
+      <div tw="flex flex-col items-center justify-center min-h-[25vh] bg-red-400 z-10">
+        <Section>
+          <Circle tw="bg-transparent border-white" />
+          <Circle tw="bg-white border-blackrussian" />
+          <Circle tw="bg-transparent border-white" />
+          <Circle tw="bg-red-400 border-white" />
+          <Circle tw="bg-green-400 border-white" />
+          <Circle tw="bg-blue-400 border-white" />
 
-          <div tw="border-solid border-4 bg-gradient-to-tr from-neonblue to-lavender w-14 h-14 border-white rounded-full shadow-xl" />
-
-          <div tw="border-solid border-4 bg-gradient-to-tr from-skylight to-lavender-100 w-14 h-14 border-white rounded-full shadow-xl" />
-        </div>
-      </section>
-    </section>
+          <Circle tw="bg-gradient-to-tr from-neonblue to-lavender border-white" />
+          <Circle tw="bg-gradient-to-tr from-skylight to-lavender-100 border-white" />
+        </Section>
+      </div>
+    </div>
   )
 }
 
