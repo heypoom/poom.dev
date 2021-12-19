@@ -8,7 +8,11 @@ module.exports = {
           DEFAULT: "#5a61f9",
         },
         lavender: {
+          100: "#e3dcff",
           DEFAULT: "#ee99e5",
+        },
+        skylight: {
+          DEFAULT: "#C0FAFF",
         },
         charade: {
           DEFAULT: "#282a36",

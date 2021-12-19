@@ -1,9 +1,14 @@
 {
-  "presets": ["next/babel"],
-  "plugins": [
-    "@agney/babel-plugin-goober-css-prop",
-    ["transform-goober", { "name": "styled" }],
-    "twin",
-    "macros"
-  ]
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-react": {
+          "runtime": "automatic",
+          "importSource": "@emotion/react"
+        }
+      }
+    ]
+  ],
+  "plugins": ["@emotion", "macros"]
 }
