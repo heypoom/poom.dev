@@ -11,6 +11,7 @@ specifiers:
   '@types/node': ^17.0.0
   '@types/react': ^17.0.37
   '@types/react-dom': ^17.0.11
+  '@types/three': ^0.135.0
   autoprefixer: ^10.4.0
   babel-plugin-macros: ^3.1.0
   eslint: ^8.5.0
@@ -49,6 +50,7 @@ devDependencies:
   '@types/node': 17.0.0
   '@types/react': 17.0.37
   '@types/react-dom': 17.0.11
+  '@types/three': 0.135.0
   autoprefixer: 10.4.0_postcss@8.4.5
   babel-plugin-macros: 3.1.0
   eslint: 8.5.0
@@ -744,6 +746,10 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
+
+  /@types/three/0.135.0:
+    resolution: {integrity: sha512-l7WLhIHjhHMtlpyTSltPPAKLpiMwgMD1hXHj59AVUpYRoZP7Fd9NNOSRSvZBCPLpTHPYojgQvSJCoza9zoL7bg==}
     dev: true
 
   /@typescript-eslint/parser/5.7.0_eslint@8.5.0+typescript@4.5.4:
