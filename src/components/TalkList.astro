@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content'
+
+const talks = await getCollection('talks')
+---
+
+<ul class="list-disc text-xl leading-9">
+  {
+    talks.map(async ({ data }) => (
+      <li class="list-item">
+        {data.title} {data.event && `at ${data.event}`}
+      </li>
+    ))
+  }
+</ul>

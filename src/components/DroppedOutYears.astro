@@ -1,0 +1,9 @@
+---
+import { differenceInYears } from 'date-fns'
+
+// How long was it since I dropped out of high school?
+// Time sure flies.
+const years = differenceInYears(Date.now(), new Date(2016, 11, 17))
+---
+
+<span>{years}</span>

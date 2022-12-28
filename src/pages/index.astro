@@ -1,50 +1,76 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
+import BaseHead from '../components/BaseHead.astro'
+
+import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
+
+import { Content as About } from '../data/about.mdx'
+import { Content as Contact } from '../data/contact.mdx'
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/pages/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+
+  <body>
+    <main>
+      <div class="max-w-4xl mx-auto py-8">
+        <section
+          class="flex flex-col text-xl md:text-2xl leading-8 md:leading-9 text-zinc-800 mx-6"
+        >
+          <About />
+        </section>
+      </div>
+
+      <div
+        class="contact px-6 py-8 text-gray-200 bg-zinc-900 flex flex-col text-md sm:text-xl leading-8 md:leading-9"
+      >
+        <section class="max-w-4xl mx-auto">
+          <Contact />
+        </section>
+      </div>
+    </main>
+
+    <style is:global>
+      h1,
+      p,
+      ul {
+        @apply my-3 sm:mx-8 md:mx-24;
+      }
+
+      h1 {
+        @apply text-3xl font-bold;
+      }
+
+      ul {
+        @apply list-disc;
+      }
+
+      b {
+        @apply font-bold;
+      }
+
+      a {
+        @apply text-purple-500;
+      }
+
+      .contact a {
+        @apply text-purple-300;
+      }
+
+      .highlighted {
+        @apply text-white px-2 py-1 shadow-sm;
+
+        background-image: linear-gradient(
+          80deg,
+          #f27121cc,
+          #e94057cc,
+          #8a2387cc
+        );
+
+        border-radius: 6px;
+      }
+    </style>
+  </body>
 </html>
