@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content'
+
+const events = await getCollection('events')
+
+const hackathons = events.filter((e) =>
+  e.data.tags.includes('stupid-hackathon')
+)
+---
+
+<div class="grid grid-cols-2 shadow-xl">
+  {
+    hackathons.map((h) => (
+      <a href={h.data.url} target="_blank">
+        <div
+          class="relative bg-cover bg-center h-20 sm:h-48 group cursor-pointer"
+          style={{ backgroundImage: `url(${h.data.image})` }}
+        >
+          <div class="flex h-[inherit] opacity-0 group-hover:opacity-100 items-center justify-center bg-slate-900 bg-opacity-60 backdrop-blur-sm text-white text-center p-4 transition-all duration-500 ease-in-out text-xs sm:text-lg md:text-xl">
+            {h.data.title}
+          </div>
+        </div>
+      </a>
+    ))
+  }
+</div>
