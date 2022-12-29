@@ -4,7 +4,7 @@
   import { DEG2RAD } from 'three/src/math/MathUtils'
 
   const modelUrl =
-    'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/low-poly-spaceship/model.gltf'
+    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/headphones/model.gltf'
 
   let rotation = 0
 
@@ -30,8 +30,8 @@
   url={modelUrl}
   interactive
   useDraco
-  scale={1.2}
-  position={{ x: 0, y: 1.5, z: 0 }}
+  scale={1}
+  position={{ x: 0, y: 1.5, z: 3 }}
 />
 
 <T.Mesh receiveShadow rotation.x={DEG2RAD * -90}>
@@ -40,5 +40,5 @@
 </T.Mesh>
 
 <T.DirectionalLight position={[3, 10, 10]} castShadow />
-<T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />
-<T.AmbientLight intensity={0.5} />
+<T.DirectionalLight position={[-3, 10, -10]} intensity={0.4} />
+<T.AmbientLight intensity={0.8} />

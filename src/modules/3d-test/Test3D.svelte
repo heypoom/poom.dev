@@ -4,7 +4,7 @@
   import Scene from './Scene.svelte'
 </script>
 
-<div class="min-h-[100vh] bg-green-500">
+<div class="min-h-[100vh] bg-gray-200">
   <Canvas>
     <Scene />
   </Canvas>
