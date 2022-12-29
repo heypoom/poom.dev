@@ -4,20 +4,18 @@
   import { DEG2RAD } from 'three/src/math/MathUtils'
 
   const modelUrl =
-    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/headphones/model.gltf'
+    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/hatchback/model.gltf'
 
-  let rotation = 0
-
-  useFrame(() => {
-    rotation += 0.008
-  })
+  export let x = 0
+  export let z = 0
+  export let r = 0
 </script>
 
-<T.Group rotation.y={rotation}>
+<T.Group>
   <T.OrthographicCamera
     zoom={130}
     let:ref={cam}
-    position={[0, 6, 10]}
+    position={[0, 8, 10]}
     makeDefault
   >
     <TransformableObject object={cam} lookAt={{ y: 2 }} />
@@ -31,7 +29,8 @@
   interactive
   useDraco
   scale={1}
-  position={{ x: 0, y: 1.5, z: 3 }}
+  rotation={{ x: 0, y: r, z: 0 }}
+  position={{ x, y: 0, z }}
 />
 
 <T.Mesh receiveShadow rotation.x={DEG2RAD * -90}>
@@ -40,5 +39,5 @@
 </T.Mesh>
 
 <T.DirectionalLight position={[3, 10, 10]} castShadow />
-<T.DirectionalLight position={[-3, 10, -10]} intensity={0.4} />
-<T.AmbientLight intensity={0.8} />
+<T.DirectionalLight position={[-3, 10, -10]} intensity={0.5} />
+<T.AmbientLight intensity={0.5} />
