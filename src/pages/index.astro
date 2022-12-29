@@ -1,5 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro'
+import Webring from '../components/Webring.astro'
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 
@@ -14,6 +15,12 @@ import { Content as Contact } from '../data/contact.mdx'
   </head>
 
   <body>
+    <header>
+      <div class="flex px-4 py-3 items-center justify-end">
+        <Webring />
+      </div>
+    </header>
+
     <main>
       <div class="max-w-4xl mx-auto py-8">
         <section
