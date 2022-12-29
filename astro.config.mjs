@@ -10,7 +10,7 @@ import tailwind from '@astrojs/tailwind'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://poom.dev',
   integrations: [mdx(), sitemap(), svelte(), tailwind()],
   experimental: {
     contentCollections: true,
