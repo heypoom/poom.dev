@@ -6,6 +6,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 
 import { Content as About } from '../data/about.mdx'
 import { Content as Contact } from '../data/contact.mdx'
+
+import '../styles/about.css'
 ---
 
 <!DOCTYPE html>
@@ -38,46 +40,5 @@ import { Content as Contact } from '../data/contact.mdx'
         </section>
       </div>
     </main>
-
-    <style is:global>
-      h1,
-      p,
-      ul {
-        @apply my-3 sm:mx-8 md:mx-24;
-      }
-
-      h1 {
-        @apply text-3xl font-bold;
-      }
-
-      ul {
-        @apply list-disc;
-      }
-
-      b {
-        @apply font-bold;
-      }
-
-      a {
-        @apply text-purple-500;
-      }
-
-      .contact a {
-        @apply text-purple-300;
-      }
-
-      .highlighted {
-        @apply text-white px-2 py-1 shadow-sm;
-
-        background-image: linear-gradient(
-          80deg,
-          #f27121cc,
-          #e94057cc,
-          #8a2387cc
-        );
-
-        border-radius: 6px;
-      }
-    </style>
   </body>
 </html>
