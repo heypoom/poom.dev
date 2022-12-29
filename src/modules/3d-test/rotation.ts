@@ -14,7 +14,6 @@ export function dir(n: number): Direction {
   if (p > UR_DL) return 'UR'
   if (p > 0) return 'DR'
   if (p === 0 || p === -0) return 'D'
-  console.log(n, p)
   if (p > -UR_DL) return 'DL'
   if (p > -UL) return 'UL'
   if (p > -DL_UR) return 'UR'
