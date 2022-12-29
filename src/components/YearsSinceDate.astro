@@ -1,0 +1,19 @@
+---
+import { differenceInYears } from 'date-fns'
+
+interface Props {
+  d: number
+  m: number
+  y: number
+
+  offset?: number
+}
+
+const { d, m, y, offset = 0 } = Astro.props
+
+// How long was it since I dropped out of high school?
+// Time sure flies.
+const years = differenceInYears(Date.now(), new Date(y, m, d)) + offset
+---
+
+<span>{years}</span>
