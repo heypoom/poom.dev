@@ -20,8 +20,16 @@ a {
 	@apply text-purple-500;
 }
 
+a:hover {
+	@apply text-purple-700;
+}
+
 .contact a {
 	@apply text-purple-300;
+}
+
+.contact a:hover {
+	@apply text-purple-400;
 }
 
 .highlighted {
