@@ -1,0 +1,77 @@
+---
+interface Channel {
+  channel: string
+  url: string
+  icon: string
+  tag?: string
+}
+
+const channels: Channel[] = [
+  {
+    channel: 'GitHub',
+    url: 'https://github.com/heypoom',
+    icon: 'github',
+    tag: '@heypoom',
+  },
+  {
+    channel: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/phoomparin',
+    icon: 'linkedin',
+    tag: '@phoomparin',
+  },
+  {
+    channel: 'Facebook',
+    url: 'https://www.facebook.com/phoomparin.mano',
+    icon: 'facebook',
+    tag: 'phoomparin.mano',
+  },
+  {
+    channel: 'Instagram',
+    url: 'https://www.instagram.com/phoomparin',
+    icon: 'instagram',
+    tag: '@phoomparin',
+  },
+  {
+    channel: 'Medium',
+    url: 'https://medium.com/@phoomparin',
+    icon: 'medium',
+    tag: '@phoomparin',
+  },
+  {
+    channel: 'Keybase',
+    url: 'https://keybase.io/phoomparin',
+    icon: 'keybase',
+    tag: '@phoomparin',
+  },
+  {
+    channel: 'DEV',
+    url: 'https://dev.to/heypoom',
+    icon: 'dev',
+    tag: '@heypoom',
+  },
+  {
+    channel: 'Twitter',
+    url: 'https://twitter.com/heypoom',
+    icon: 'twitter',
+    tag: '@heypoom',
+  },
+  {
+    channel: 'Reddit',
+    url: 'https://reddit.com/u/heypoom',
+    icon: 'reddit',
+    tag: '@heypoom',
+  },
+]
+---
+
+<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+  {
+    channels.map((c) => (
+      <a href={c.url} target="_blank" title={c.channel}>
+        <div class="relative flex flex-col items-center justify-center py-8 text-white hover:bg-gray-100 hover:text-gray-800 space-y-1 group">
+          <i class={`fa-xl fa-brands fa-${c.icon}`} />
+        </div>
+      </a>
+    ))
+  }
+</div>
