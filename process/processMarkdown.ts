@@ -4,7 +4,7 @@ import omit from 'lodash/omit'
 
 import { default as Front } from 'yaml-front-matter'
 
-const ROOT_DIR = 'data/notes'
+import { NOTES_DIR } from './constants'
 
 type Content = FileMeta & {
   name: string
@@ -16,7 +16,7 @@ interface FileMeta {
   metadata: Record<string, any>
 }
 
-async function processMarkdownFiles(root: string): Promise<Content[]> {
+export async function processMarkdownFiles(root: string): Promise<Content[]> {
   const files = await fs.readdir(root)
 
   const markdown = files.flatMap(async (fileName) => {
@@ -35,7 +35,7 @@ async function processMarkdownFiles(root: string): Promise<Content[]> {
 
       const content: Content = {
         name: fileName,
-        path: filePath.replace(ROOT_DIR, '').replace('/', ''),
+        path: filePath.replace(NOTES_DIR, '').replace('/', ''),
         createdAt: stat.birthtime,
         ...meta,
       }
@@ -66,6 +66,3 @@ async function processFile(path: string): Promise<FileMeta | null> {
     return null
   }
 }
-
-const contents = await processMarkdownFiles(ROOT_DIR)
-console.log(contents)

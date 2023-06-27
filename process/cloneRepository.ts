@@ -1,9 +1,6 @@
 import { outputHandler, simpleGit } from 'simple-git'
 
-import 'dotenv/config'
-
-const GITHUB_REPO = 'heypoom/notes'
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+import { CLONE_DIR, GITHUB_REPO, GITHUB_TOKEN } from './constants'
 
 const GIT_REMOTE = `https://${GITHUB_TOKEN}@github.com/${GITHUB_REPO}`
 
@@ -16,7 +13,7 @@ const h: outputHandler = (_, stdout, stderr) => {
 export async function cloneRepository() {
   console.time('clone')
 
-  const git = simpleGit({ baseDir: './data' }).outputHandler(h)
+  const git = simpleGit({ baseDir: `./${CLONE_DIR}` }).outputHandler(h)
   await git.clone(GIT_REMOTE)
 
   console.timeEnd('clone')
