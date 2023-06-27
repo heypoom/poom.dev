@@ -1,6 +1,4 @@
-import { Octokit } from '@octokit/rest'
-
-import 'dotenv/config'
+import { octokit } from './octokit'
 
 class FileContentError extends Error {
   override message = 'Cannot retrieve file content'
@@ -13,10 +11,6 @@ class FileContentError extends Error {
 
 export async function getFileContent(path: string): Promise<string> {
   try {
-    const octokit = new Octokit({
-      auth: process.env.OCTOKIT_ACCESS_TOKEN,
-    })
-
     const res = await octokit.repos.getContent({
       owner: 'heypoom',
       repo: 'notes',
