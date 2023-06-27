@@ -7,16 +7,7 @@ import { default as Front } from 'yaml-front-matter'
 import { NOTES_DIR } from './constants'
 import { getLinks } from './links'
 
-type Content = FileMeta & {
-  name: string
-  path: string
-  createdAt: Date
-}
-
-interface FileMeta {
-  metadata: Record<string, any>
-  links: string[]
-}
+import type { Content } from './types'
 
 export async function processMarkdownFiles(root: string): Promise<Content[]> {
   const files = await fs.readdir(root)
