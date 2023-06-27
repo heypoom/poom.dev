@@ -1,6 +1,6 @@
 import type { Content } from './types'
 
-export function verifyBacklinks(contents: Content[]) {
+export function verifyReferences(contents: Content[]) {
   for (const content of contents) {
     for (const link of content.links) {
       const referenced = contents.find((c) => c.name === link)

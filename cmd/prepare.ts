@@ -2,7 +2,7 @@ import { existsSync } from 'fs'
 
 import { cloneRepository } from './prepare/clone'
 import { processMarkdownFiles } from './prepare/process'
-import { verifyBacklinks } from './prepare/verify'
+import { verifyReferences } from './prepare/verify'
 
 import { NOTES_DIR } from './prepare/constants'
 import { timed as t } from './prepare/timed'
@@ -12,4 +12,4 @@ if (!existsSync(NOTES_DIR)) {
 }
 
 const contents = await t('process', () => processMarkdownFiles(NOTES_DIR))
-t('verify', () => verifyBacklinks(contents))
+t('verify', () => verifyReferences(contents))
