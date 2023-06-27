@@ -19,3 +19,6 @@ pnpm-debug.log*
 .DS_Store
 
 src/.obsidian/
+
+# Digital Garden (Notes) private repository
+data/

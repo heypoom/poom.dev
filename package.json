@@ -8,17 +8,27 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "esno": "esno"
   },
   "dependencies": {
-    "@astrojs/mdx": "^0.14.0",
-    "@astrojs/rss": "^2.0.0",
-    "@astrojs/sitemap": "^1.0.0",
-    "@astrojs/svelte": "^1.0.2",
-    "@astrojs/tailwind": "^2.1.3",
-    "astro": "^1.8.0",
-    "date-fns": "^2.29.3",
-    "svelte": "^3.46.4",
-    "tailwindcss": "^3.0.24"
+    "@astrojs/mdx": "^0.19.7",
+    "@astrojs/rss": "^2.4.3",
+    "@astrojs/sitemap": "^1.3.3",
+    "@astrojs/svelte": "^3.0.0",
+    "@astrojs/tailwind": "^4.0.0",
+    "@octokit/app": "^13.1.8",
+    "@octokit/auth-token": "^4.0.0",
+    "@octokit/rest": "^19.0.13",
+    "astro": "^2.7.0",
+    "date-fns": "^2.30.0",
+    "degit": "^2.8.4",
+    "dotenv": "^16.3.1",
+    "svelte": "^4.0.0",
+    "tailwindcss": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/degit": "^2.8.3",
+    "esno": "^0.16.3"
   }
 }
