@@ -5,6 +5,7 @@ import omit from 'lodash/omit'
 import { default as Front } from 'yaml-front-matter'
 
 import { NOTES_DIR } from './constants'
+import { getLinks } from './links'
 
 type Content = FileMeta & {
   name: string
@@ -14,6 +15,7 @@ type Content = FileMeta & {
 
 interface FileMeta {
   metadata: Record<string, any>
+  links: string[]
 }
 
 export async function processMarkdownFiles(root: string): Promise<Content[]> {
@@ -34,7 +36,7 @@ export async function processMarkdownFiles(root: string): Promise<Content[]> {
       if (!meta) return []
 
       const content: Content = {
-        name: fileName,
+        name: fileName.replace(/\.md$/, ''),
         path: filePath.replace(NOTES_DIR, '').replace('/', ''),
         createdAt: stat.birthtime,
         ...meta,
@@ -61,7 +63,7 @@ async function processFile(path: string): Promise<FileMeta | null> {
     const meta = Front.loadFront(content)
     if (meta.public !== true && meta.Public !== true) return null
 
-    return { metadata: omit(meta, ['__content']) }
+    return { metadata: omit(meta, ['__content']), links: getLinks(content) }
   } catch (err) {
     return null
   }

@@ -11,10 +11,6 @@ const h: outputHandler = (_, stdout, stderr) => {
 
 // TODO: this is horribly inefficient, will optimize later.
 export async function cloneRepository() {
-  console.time('clone')
-
   const git = simpleGit({ baseDir: `./${CLONE_DIR}` }).outputHandler(h)
   await git.clone(GIT_REMOTE)
-
-  console.timeEnd('clone')
 }
