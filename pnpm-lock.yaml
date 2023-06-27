@@ -70,6 +70,9 @@ devDependencies:
   '@types/yaml-front-matter':
     specifier: ^4.1.0
     version: 4.1.0
+  chalk:
+    specifier: ^5.2.0
+    version: 5.2.0
   esno:
     specifier: ^0.16.3
     version: 0.16.3
@@ -1693,7 +1696,6 @@ packages:
   /chalk@5.2.0:
     resolution: {integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
-    dev: false
 
   /character-entities-html4@2.1.0:
     resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
