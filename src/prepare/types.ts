@@ -1,6 +1,7 @@
 export type Content = FileMeta & {
   name: string
   path: string
+  size?: number
   createdAt: Date
 }
 

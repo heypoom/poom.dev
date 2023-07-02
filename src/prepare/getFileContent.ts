@@ -1,4 +1,5 @@
 import { octokit } from './octokit'
+import { GITHUB_OWNER, GIT_REPO } from './constants'
 
 class FileContentError extends Error {
   override message = 'Cannot retrieve file content'
@@ -12,8 +13,8 @@ class FileContentError extends Error {
 export async function getFileContent(path: string): Promise<string> {
   try {
     const res = await octokit.repos.getContent({
-      owner: 'heypoom',
-      repo: 'notes',
+      owner: GITHUB_OWNER,
+      repo: GIT_REPO,
       path,
     })
 
