@@ -1,18 +1,16 @@
 import fs from 'fs/promises'
 
 import {
-  parseTarballFromBuffer,
-  verifyReferences,
   timed as t,
-  createSnapshot,
+  verifyReferences,
   syncNotesToDatabase,
+  parseTarballFromBuffer,
 } from '../src/prepare'
 
 console.log('scanning tarball...')
 
 const notes = await t('parse', async () => {
-  const file = await fs.readFile('./tarball.tar')
-  return parseTarballFromBuffer(file)
+  return parseTarballFromBuffer(await fs.readFile('./tarball.tar'))
 })
 
 await t('verify', () => verifyReferences(notes))

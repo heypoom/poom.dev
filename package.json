@@ -10,9 +10,10 @@
     "preview": "astro preview",
     "astro": "astro",
     "esno": "esno",
-    "scan-local": "esno cmd/scan-local",
-    "scan-tarball": "esno cmd/scan-tarball",
-    "save-tarball": "esno cmd/save-tarball"
+    "sync:repo": "esno cmd/sync-repo",
+    "sync:local": "esno cmd/sync-local",
+    "sync:tarball": "esno cmd/sync-tarball",
+    "save:tarball": "esno cmd/save-tarball"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
