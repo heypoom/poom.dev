@@ -1,6 +1,8 @@
-import { MongoClient, ServerApiVersion } from 'mongodb'
+import { MongoClient, ServerApiVersion, Document } from 'mongodb'
 
 import { MONGO_URI, DEFAULT_MONGO_DATABASE } from './constants'
+
+import type { SnapshotRecord, Note } from './types'
 
 class MongoManager {
   private static _client: MongoClient | null = null
@@ -34,6 +36,14 @@ class MongoManager {
     return client.db(DEFAULT_MONGO_DATABASE)
   }
 
+  static collection<T extends Document>(key: string) {
+    return async () => {
+      const db = await MongoManager.database()
+
+      return db.collection<T>(key)
+    }
+  }
+
   static close() {
     setTimeout(async () => {
       this._client!.close()
@@ -43,3 +53,9 @@ class MongoManager {
 
 export const mongo = MongoManager
 export const database = MongoManager.database
+export const collection = MongoManager.collection
+
+export const db = {
+  notes: collection<Note>('notes'),
+  snapshots: collection<SnapshotRecord>('snapshots'),
+}

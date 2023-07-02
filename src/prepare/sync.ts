@@ -1,47 +1,50 @@
-import { database } from './db'
+import { db } from './db'
 import { createSnapshot, diffSnapshot } from './snapshot'
 
-import type { Note, Snapshot } from './types'
-
-interface SnapshotRecord {
-  updatedAt: Date
-  snapshot: Snapshot
-  latest: boolean
-}
-
-async function Snapshots() {
-  const db = await database()
-
-  return db.collection<SnapshotRecord>('snapshot')
-}
+import type { Note, SnapshotRecord } from './types'
 
 export async function syncNotesToDatabase(notes: Note[]) {
-  const snapshots$ = await Snapshots()
+  try {
+    const notes$ = await db.notes()
+    const snapshots$ = await db.snapshots()
 
-  const newSnapshot = createSnapshot(notes)
+    const newSnapshot = createSnapshot(notes)
+    const existingRecord = await snapshots$.findOne({ latest: { $eq: true } })
 
-  const currentRecord = await snapshots$.findOne({ latest: { $eq: true } })
-  const oldSnapshot = currentRecord?.snapshot
-  if (!oldSnapshot) return
+    // TODO: write unit test for cases where there is no existing snapshot.
+    const oldSnapshot = existingRecord?.snapshot ?? {}
 
-  const diffs = diffSnapshot(oldSnapshot, newSnapshot)
-  console.log(diffs)
+    // Diff the current and incoming snapshots.
+    const diffs = diffSnapshot(oldSnapshot, newSnapshot)
+    console.log('diffs:', diffs)
 
-  // await saveSnapshotToDatabase(notes)
-}
+    // Insert the notes to insert.
+    const notesToInsert = notes.filter((n) => diffs.added.includes(n.path))
+    await notes$.insertMany(notesToInsert)
 
-export async function saveSnapshotToDatabase(notes: Note[]) {
-  const snapshots$ = await Snapshots()
+    // Delete the notes to delete.
+    await notes$.deleteMany({ path: { $in: diffs.removed } })
 
-  const value = {
-    snapshot: createSnapshot(notes),
-    updatedAt: new Date(),
-    latest: true,
+    // Update the notes to update.
+    const notesToUpdate = notes
+      .filter((n) => diffs.updated.includes(n.path))
+      .map((n) => notes$.updateOne({ path: n.path }, { $set: n }))
+
+    await Promise.all(notesToUpdate)
+
+    // Save the current notes' snapshot to database.
+    const snapshotRecord: SnapshotRecord = {
+      snapshot: newSnapshot,
+      updatedAt: new Date(),
+      latest: true,
+    }
+
+    snapshots$.updateOne(
+      { latest: { $eq: true } },
+      { $set: snapshotRecord },
+      { upsert: true }
+    )
+  } catch (err) {
+    console.warn('Cannot sync notes to database:', err)
   }
-
-  snapshots$.updateOne(
-    { latest: { $eq: true } },
-    { $set: value },
-    { upsert: true }
-  )
 }

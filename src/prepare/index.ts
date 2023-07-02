@@ -3,7 +3,7 @@ export { verifyReferences } from './verify'
 export { timed } from './timed'
 export { createSnapshot, diffSnapshot } from './snapshot'
 export { octokit, getTarballBuffer } from './octokit'
-export { syncNotesToDatabase, saveSnapshotToDatabase } from './sync'
+export { syncNotesToDatabase } from './sync'
 export { extractMetadata } from './metadata'
 export { mongo } from './db'
 

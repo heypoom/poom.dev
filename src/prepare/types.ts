@@ -23,3 +23,9 @@ export interface SnapshotDiff {
   updated: string[]
   removed: string[]
 }
+
+export interface SnapshotRecord {
+  updatedAt: Date
+  snapshot: Snapshot
+  latest: boolean
+}
