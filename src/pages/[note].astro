@@ -10,8 +10,7 @@ import { db } from '../prepare/db'
 export const prerender = false
 
 const notes$ = await db.notes()
-
-const note = await notes$.findOne({ name: { $eq: Astro.params.note! } })
+const note = await notes$.findOne({ slug: { $eq: Astro.params.note! } })
 
 let html = ''
 
