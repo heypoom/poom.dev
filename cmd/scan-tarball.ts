@@ -4,6 +4,7 @@ import {
   parseTarballFromBuffer,
   verifyReferences,
   timed as t,
+  createSnapshot,
 } from '../src/prepare'
 
 console.log('scanning tarball...')
@@ -14,3 +15,8 @@ const notes = await t('parse', async () => {
 })
 
 t('verify', () => verifyReferences(notes))
+
+t('snapshot', async () => {
+  const snapshot = await createSnapshot(notes)
+  await fs.writeFile('snapshot.json', JSON.stringify(snapshot, null, 2))
+})

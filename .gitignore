@@ -22,4 +22,6 @@ src/.obsidian/
 
 # Digital Garden (Notes) private repository
 data/
+
 tarball.tar
+snapshot.json

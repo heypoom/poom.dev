@@ -11,7 +11,8 @@
     "astro": "astro",
     "esno": "esno",
     "scan-local": "esno cmd/scan-local",
-    "scan-tarball": "esno cmd/scan-tarball"
+    "scan-tarball": "esno cmd/scan-tarball",
+    "save-tarball": "esno cmd/save-tarball"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
