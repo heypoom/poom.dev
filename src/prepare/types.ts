@@ -3,8 +3,6 @@ export interface FileMeta {
   timestamp: Date
 }
 
-export type Snapshot = { [path: string]: FileMeta }
-
 export interface Note extends FileMeta, NoteMeta {
   source: string
   path: string
@@ -14,4 +12,14 @@ export interface Note extends FileMeta, NoteMeta {
 export interface NoteMeta {
   links: string[]
   metadata: Record<string, any>
+}
+
+export interface Snapshot {
+  [path: string]: FileMeta
+}
+
+export interface SnapshotDiff {
+  added: string[]
+  updated: string[]
+  removed: string[]
 }

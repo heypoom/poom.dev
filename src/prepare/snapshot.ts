@@ -1,4 +1,4 @@
-import type { Note, Snapshot } from './types'
+import type { Note, Snapshot, SnapshotDiff } from './types'
 
 export function createSnapshot(notes: Note[]): Snapshot {
   const map: Snapshot = {}
@@ -10,7 +10,7 @@ export function createSnapshot(notes: Note[]): Snapshot {
   return map
 }
 
-export function diffSnapshot(current: Snapshot, next: Snapshot) {
+export function diffSnapshot(current: Snapshot, next: Snapshot): SnapshotDiff {
   const added: string[] = []
   const removed: string[] = []
   const updated: string[] = []
