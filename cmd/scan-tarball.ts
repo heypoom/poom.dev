@@ -5,6 +5,7 @@ import {
   verifyReferences,
   timed as t,
   createSnapshot,
+  syncNotesToDatabase,
 } from '../src/prepare'
 
 console.log('scanning tarball...')
@@ -14,9 +15,5 @@ const notes = await t('parse', async () => {
   return parseTarballFromBuffer(file)
 })
 
-t('verify', () => verifyReferences(notes))
-
-t('snapshot', async () => {
-  const snapshot = await createSnapshot(notes)
-  await fs.writeFile('snapshot.json', JSON.stringify(snapshot, null, 2))
-})
+await t('verify', () => verifyReferences(notes))
+await t('sync', () => syncNotesToDatabase(notes))

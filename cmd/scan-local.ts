@@ -1,11 +1,12 @@
-import {
-  scanLocalVault,
-  verifyReferences,
-  timed as t,
-  NOTES_DIR,
-} from '../src/prepare'
+import path from 'path'
+import { homedir } from 'os'
+
+import { scanLocalVault, verifyReferences, timed as t } from '../src/prepare'
 
 console.log('scanning local vault...')
 
-const notes = await t('process', () => scanLocalVault(NOTES_DIR))
+// Replace it with your notes directory.
+const dir = path.resolve(homedir(), 'notes')
+
+const notes = await t('process', () => scanLocalVault(dir))
 t('verify', () => verifyReferences(notes))
