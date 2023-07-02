@@ -2,10 +2,16 @@
 import { micromark } from 'micromark'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 
+import '../styles/note.css'
+
 import * as wk from 'micromark-extension-wiki-link'
 import * as fm from 'micromark-extension-frontmatter'
 
 import { db } from '../prepare/db'
+
+import BaseHead from '../components/BaseHead.astro'
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
 
 export const prerender = false
 
@@ -22,18 +28,34 @@ if (note) {
 }
 ---
 
-<div class="bg-[#121213] text-white">
-	<main class="flex flex-col justify-center mx-auto max-w-2xl min-h-screen">
-		{
-			note && (
-				<section class="prose prose-invert prose-a:no-underline prose-a:text-yellow-200 hover:prose-a:underline hover:prose-a:text-yellow-300 hover:prose-a:underline-offset-4 py-16">
-					<h1>{note.name}</h1>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`${note?.name ?? 'Memo'} | Phoomparin Mano`}
+			description={SITE_DESCRIPTION}
+		/>
+	</head>
 
-					<article set:html={html} />
-				</section>
-			)
-		}
+	<body>
+		<div class="bg-[#121213] text-white">
+			<main class="flex flex-col justify-center mx-auto max-w-2xl min-h-screen">
+				{
+					note && (
+						<section class="prose prose-invert prose-a:no-underline prose-a:text-yellow-200 hover:prose-a:underline hover:prose-a:text-yellow-300 hover:prose-a:underline-offset-4 py-16">
+							<h1>{note.name}</h1>
 
-		{!note && <h1 class="text-3xl">The page you were looking for is gone!</h1>}
-	</main>
-</div>
+							<article set:html={html} />
+						</section>
+					)
+				}
+
+				{
+					!note && (
+						<h1 class="text-3xl">The page you were looking for is gone!</h1>
+					)
+				}
+			</main>
+		</div>
+	</body>
+</html>

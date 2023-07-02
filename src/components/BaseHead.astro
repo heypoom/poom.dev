@@ -4,9 +4,9 @@
 import '../styles/global.css'
 
 export interface Props {
-  title: string
-  description: string
-  image?: string
+	title: string
+	description: string
+	image?: string
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
@@ -47,8 +47,8 @@ const { title, description, image = '/poom.jpg' } = Astro.props
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
 <link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
 />
 
 <script src="https://kit.fontawesome.com/0f355ffcd9.js" crossorigin="anonymous"
