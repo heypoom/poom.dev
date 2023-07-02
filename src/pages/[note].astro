@@ -12,18 +12,32 @@ import { db } from '../prepare/db'
 import BaseHead from '../components/BaseHead.astro'
 
 import { SITE_DESCRIPTION } from '../config'
+import { slugify } from '../prepare'
 
 export const prerender = false
 
 const notes$ = await db.notes()
 const note = await notes$.findOne({ slug: { $eq: Astro.params.note! } })
 
+const slugs = await notes$
+	.find({ slug: { $exists: true } }, { projection: { slug: 1 } })
+	.map((s) => s.slug)
+	.toArray()
+
 let html = ''
 
 if (note) {
 	html = micromark(note.source, {
 		extensions: [gfm(), wk.syntax({ aliasDivider: '|' }), fm.frontmatter()],
-		htmlExtensions: [gfmHtml(), wk.html(), fm.frontmatterHtml()],
+		htmlExtensions: [
+			gfmHtml(),
+			wk.html({
+				permalinks: slugs ?? [],
+				pageResolver: (name) => [slugify(name)],
+				hrefTemplate: (name) => `/${name}`,
+			}),
+			fm.frontmatterHtml(),
+		],
 	})
 }
 ---
