@@ -16,16 +16,20 @@ export function diffSnapshot(current: Snapshot, next: Snapshot): SnapshotDiff {
   const updated: string[] = []
 
   for (const path of Object.keys(current)) {
-    if (!next[path]) {
+    const A = current[path]
+    const B = next[path]
+
+    if (!B) {
       removed.push(path)
       continue
     }
 
-    if (current[path]?.size !== next[path]?.size) {
+    if (A?.size !== B?.size) {
       updated.push(path)
+      continue
     }
 
-    if (current[path]?.timestamp !== next[path]?.timestamp) {
+    if (A?.timestamp?.valueOf() !== B?.timestamp?.valueOf()) {
       updated.push(path)
     }
   }
