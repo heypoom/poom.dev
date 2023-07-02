@@ -1,7 +1,9 @@
 import path from 'path'
 import { homedir } from 'os'
 
-import { scanLocalVault, verifyReferences, timed as t } from '../src/prepare'
+import { scanLocalVault } from './local/scanLocalVault'
+
+import { verifyReferences, timed as t } from '../src/prepare'
 
 console.log('scanning local vault...')
 

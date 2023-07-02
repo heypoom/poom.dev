@@ -1,4 +1,3 @@
-export { scanLocalVault } from '../../cmd/local/scanLocalVault'
 export { scanTarball as parseTarballFromBuffer } from './tarball'
 export { verifyReferences } from './verify'
 export { timed } from './timed'
