@@ -23,6 +23,7 @@
     "@octokit/app": "^13.1.8",
     "@octokit/auth-token": "^4.0.0",
     "@octokit/rest": "^19.0.13",
+    "@tailwindcss/typography": "^0.5.9",
     "astro": "^2.7.0",
     "date-fns": "^2.30.0",
     "degit": "^2.8.4",
