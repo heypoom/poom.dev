@@ -19,18 +19,24 @@ export async function syncNotesToDatabase(notes: Note[]) {
     console.log('diffs:', diffs)
 
     // Insert the notes to insert.
-    const notesToInsert = notes.filter((n) => diffs.added.includes(n.path))
-    await notes$.insertMany(notesToInsert)
+    if (diffs.added.length > 0) {
+      const notesToInsert = notes.filter((n) => diffs.added.includes(n.path))
+      await notes$.insertMany(notesToInsert)
+    }
 
     // Delete the notes to delete.
-    await notes$.deleteMany({ path: { $in: diffs.removed } })
+    if (diffs.removed.length > 0) {
+      await notes$.deleteMany({ path: { $in: diffs.removed } })
+    }
 
     // Update the notes to update.
-    const notesToUpdate = notes
-      .filter((n) => diffs.updated.includes(n.path))
-      .map((n) => notes$.updateOne({ path: n.path }, { $set: n }))
+    if (diffs.updated.length > 0) {
+      const notesToUpdate = notes
+        .filter((n) => diffs.updated.includes(n.path))
+        .map((n) => notes$.updateOne({ path: n.path }, { $set: n }))
 
-    await Promise.all(notesToUpdate)
+      await Promise.all(notesToUpdate)
+    }
 
     // Save the current notes' snapshot to database.
     const snapshotRecord: SnapshotRecord = {

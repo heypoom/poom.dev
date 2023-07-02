@@ -15,7 +15,7 @@ export async function extractMetadata(
     const meta = Front.loadFront(source)
     if (meta.public !== true && meta.Public !== true) return null
 
-    return { metadata: omit(meta, ['__content']), links: getLinks(source) }
+    return { links: getLinks(source), metadata: omit(meta, ['__content']) }
   } catch (err) {
     return null
   }

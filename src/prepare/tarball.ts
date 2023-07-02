@@ -3,6 +3,7 @@ import { Minipass } from 'minipass'
 import { Readable } from 'stream'
 import { pipeline } from 'stream/promises'
 
+import { slugify } from './slug'
 import { extractMetadata } from './metadata'
 
 import type { Note } from './types'
@@ -34,16 +35,17 @@ export async function scanTarball(buffer: Buffer): Promise<Note[]> {
     const chunks = await entry.collect()
     const source = Buffer.concat(chunks).toString('utf-8')
 
-    const metadata = await extractMetadata(source)
+    const meta = await extractMetadata(source)
 
-    if (name && metadata) {
+    if (name && meta) {
       const note: Note = {
         name,
         path,
+        slug: slugify(name, meta.metadata),
         size: entry.size ?? 0,
         source,
         timestamp: new Date(entry.mtime ?? 0),
-        ...metadata,
+        ...meta,
       }
 
       notes.push(note)

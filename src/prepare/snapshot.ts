@@ -1,10 +1,12 @@
+import _ from 'lodash'
+
 import type { Note, Snapshot, SnapshotDiff } from './types'
 
 export function createSnapshot(notes: Note[]): Snapshot {
   const map: Snapshot = {}
 
   for (const note of notes) {
-    map[note.path] = { size: note.size, timestamp: note.timestamp }
+    map[note.path] = _.pick(note, 'size', 'timestamp', 'slug')
   }
 
   return map
@@ -25,6 +27,11 @@ export function diffSnapshot(current: Snapshot, next: Snapshot): SnapshotDiff {
     }
 
     if (A?.size !== B?.size) {
+      updated.push(path)
+      continue
+    }
+
+    if (A?.slug !== B?.slug) {
       updated.push(path)
       continue
     }

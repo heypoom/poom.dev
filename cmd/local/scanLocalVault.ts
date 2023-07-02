@@ -1,7 +1,7 @@
 import fs from 'fs/promises'
 import path from 'path'
 
-import { extractMetadata, type Note } from '../../src/prepare'
+import { extractMetadata, slugify, type Note } from '../../src/prepare'
 
 export async function scanLocalVault(root: string): Promise<Note[]> {
   async function scan(dir: string): Promise<Note[]> {
@@ -17,16 +17,19 @@ export async function scanLocalVault(root: string): Promise<Note[]> {
 
       if (stat.isFile()) {
         const source = await fs.readFile(filePath, 'utf-8')
-        const metadata = await extractMetadata(source)
-        if (!metadata) return []
+        const meta = await extractMetadata(source)
+        if (!meta) return []
+
+        const name = fileName.replace(/\.md$/, '')
 
         const note: Note = {
-          name: fileName.replace(/\.md$/, ''),
+          name,
           path: filePath.replace(root, '').replace('/', ''),
+          slug: slugify(name, meta.metadata),
           source: source,
           size: stat.size,
           timestamp: stat.birthtime,
-          ...metadata,
+          ...meta,
         }
 
         return [note]

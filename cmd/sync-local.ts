@@ -14,6 +14,8 @@ const dir = path.resolve(homedir(), 'notes')
 console.log('scanning local vault...')
 
 const notes = await t('process', () => scanLocalVault(dir))
+console.log('notes:', notes.length)
+
 await t('verify', () => verifyReferences(notes))
 await t('sync', () => syncNotesToDatabase(notes))
 

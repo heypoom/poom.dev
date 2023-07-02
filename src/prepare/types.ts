@@ -1,4 +1,5 @@
 export interface FileMeta {
+  slug: string
   size: number
   timestamp: Date
 }
