@@ -46,4 +46,4 @@ const events = defineCollection({
   },
 })
 
-export const collections = { talks, events }
+// export const collections = { talks, events }

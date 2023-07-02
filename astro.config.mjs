@@ -12,7 +12,4 @@ import tailwind from '@astrojs/tailwind'
 export default defineConfig({
   site: 'https://poom.dev',
   integrations: [mdx(), sitemap(), svelte(), tailwind()],
-  experimental: {
-    contentCollections: true,
-  },
 })

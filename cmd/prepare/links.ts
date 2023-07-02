@@ -1,4 +1,4 @@
-const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?).md\)/g
+const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?)\.md\)/g
 
 export function getLinks(content: string): string[] {
   const links: string[] = []

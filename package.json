@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "esno": "esno"
+    "esno": "esno",
+    "verify": "esno cmd/verify"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
