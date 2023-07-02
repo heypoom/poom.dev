@@ -19,9 +19,7 @@ export async function getFileContent(path: string): Promise<string> {
     })
 
     if ('content' in res.data) {
-      const content = Buffer.from(res.data.content, 'base64').toString()
-
-      return content
+      return Buffer.from(res.data.content, 'base64').toString()
     }
 
     throw new Error('file not found')

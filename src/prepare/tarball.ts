@@ -5,12 +5,12 @@ import { pipeline } from 'stream/promises'
 
 import { extractMetadata } from './metadata'
 
-import type { Content } from './types'
+import type { Note } from './types'
 
 const getPath = (path: string) => path.replace(/^.+?\//, '')
 const getName = (path: string) => path.match(/.*\/(.*)\.md/)?.[1]
 
-export async function scanTarball(buffer: Buffer): Promise<Content[]> {
+export async function scanTarball(buffer: Buffer): Promise<Note[]> {
   const reader = new Minipass<tar.ReadEntry>({ objectMode: true })
 
   const parser = new tar.Parse({
@@ -20,7 +20,7 @@ export async function scanTarball(buffer: Buffer): Promise<Content[]> {
 
   const task = pipeline(Readable.from(buffer), parser).then(() => reader.end())
 
-  const contents: Content[] = []
+  const notes: Note[] = []
 
   for await (const entry of reader) {
     const path = getPath(entry.path)
@@ -37,16 +37,16 @@ export async function scanTarball(buffer: Buffer): Promise<Content[]> {
     const metadata = await extractMetadata(source)
 
     if (name && metadata) {
-      const content: Content = {
+      const note: Note = {
         name,
         path,
         size: entry.size ?? 0,
-        content: source,
-        createdAt: new Date(entry.mtime ?? 0),
+        source,
+        timestamp: new Date(entry.mtime ?? 0),
         ...metadata,
       }
 
-      contents.push(content)
+      notes.push(note)
     }
 
     entry.resume()
@@ -54,5 +54,5 @@ export async function scanTarball(buffer: Buffer): Promise<Content[]> {
 
   await task
 
-  return contents
+  return notes
 }

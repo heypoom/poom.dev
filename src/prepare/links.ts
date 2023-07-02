@@ -1,9 +1,9 @@
 const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?)\.md\)/g
 
-export function getLinks(content: string): string[] {
+export function getLinks(source: string): string[] {
   const links: string[] = []
 
-  const matches = content.matchAll(linkRegex)
+  const matches = source.matchAll(linkRegex)
   if (!matches) return []
 
   for (const m of matches) {

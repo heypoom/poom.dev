@@ -1,12 +1,17 @@
-export type Content = FileMeta & {
-  name: string
-  path: string
+export interface FileMeta {
   size: number
-  content: string
-  createdAt: Date
+  timestamp: Date
 }
 
-export interface FileMeta {
-  metadata: Record<string, any>
+export type Snapshot = { [path: string]: FileMeta }
+
+export interface Note extends FileMeta, NoteMeta {
+  source: string
+  path: string
+  name: string
+}
+
+export interface NoteMeta {
   links: string[]
+  metadata: Record<string, any>
 }

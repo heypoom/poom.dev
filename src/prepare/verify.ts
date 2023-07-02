@@ -3,7 +3,7 @@ import { warn } from 'console'
 
 import { HOME_NAME } from './constants'
 
-import type { Content } from './types'
+import type { Note } from './types'
 
 type G = Map<string, Set<string>>
 
@@ -47,17 +47,17 @@ const brokenLinkWarning = (parent: string, child: string) =>
 const orphanWarning = (orphan: string) =>
   `${ch.red(orphan)} is ${ch.bold('not discoverable from home')}`
 
-export function verifyReferences(contents: Content[]) {
-  const home = contents.find((c) => c.name === HOME_NAME)
+export function verifyReferences(notes: Note[]) {
+  const home = notes.find((c) => c.name === HOME_NAME)
 
   const graph: G = new Map()
 
-  for (const parent of contents) {
+  for (const parent of notes) {
     addNode(graph, parent.path)
 
     for (const link of parent.links) {
       // Does all links in the content exist?
-      const child = contents.find((c) => c.name === link)
+      const child = notes.find((c) => c.name === link)
 
       if (!child) {
         warn(brokenLinkWarning(parent.path, link))

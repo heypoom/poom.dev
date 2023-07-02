@@ -3,10 +3,10 @@ import path from 'path'
 
 import { NOTES_DIR } from './constants'
 
-import type { Content } from './types'
+import type { Note } from './types'
 import { extractMetadata } from './metadata'
 
-export async function scanLocalVault(root: string): Promise<Content[]> {
+export async function scanLocalVault(root: string): Promise<Note[]> {
   const files = await fs.readdir(root)
 
   const markdown = files.flatMap(async (fileName) => {
@@ -24,16 +24,16 @@ export async function scanLocalVault(root: string): Promise<Content[]> {
       const metadata = await extractMetadata(source)
       if (!metadata) return []
 
-      const content: Content = {
+      const note: Note = {
         name: fileName.replace(/\.md$/, ''),
         path: filePath.replace(NOTES_DIR, '').replace('/', ''),
-        content: source,
+        source: source,
         size: stat.size,
-        createdAt: stat.birthtime,
+        timestamp: stat.birthtime,
         ...metadata,
       }
 
-      return [content]
+      return [note]
     }
 
     return []

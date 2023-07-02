@@ -7,5 +7,5 @@ import {
 
 console.log('scanning local vault...')
 
-const contents = await t('process', () => scanLocalVault(NOTES_DIR))
-t('verify', () => verifyReferences(contents))
+const notes = await t('process', () => scanLocalVault(NOTES_DIR))
+t('verify', () => verifyReferences(notes))
