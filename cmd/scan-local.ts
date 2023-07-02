@@ -1,9 +1,11 @@
 import {
-  processMarkdownFiles,
+  scanLocalVault,
   verifyReferences,
   timed as t,
   NOTES_DIR,
 } from '../src/prepare'
 
-const contents = await t('process', () => processMarkdownFiles(NOTES_DIR))
+console.log('scanning local vault...')
+
+const contents = await t('process', () => scanLocalVault(NOTES_DIR))
 t('verify', () => verifyReferences(contents))

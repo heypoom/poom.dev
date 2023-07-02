@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "esno": "esno",
-    "verify": "esno cmd/verify"
+    "scan-local": "esno cmd/scan-local",
+    "scan-tarball": "esno cmd/scan-tarball"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.19.7",
@@ -25,6 +26,7 @@
     "degit": "^2.8.4",
     "dotenv": "^16.3.1",
     "lodash": "^4.17.21",
+    "minipass": "^6.0.2",
     "mongodb": "^5.6.0",
     "simple-git": "^3.19.1",
     "svelte": "^4.0.0",

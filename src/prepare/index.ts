@@ -1,4 +1,5 @@
-export { scanLocalVault as processMarkdownFiles } from './scanLocalVault'
+export { scanLocalVault } from './scanLocalVault'
+export { scanTarball as parseTarballFromBuffer } from './repo'
 export { verifyReferences } from './verify'
 export { timed } from './timed'
 export { NOTES_DIR } from './constants'
