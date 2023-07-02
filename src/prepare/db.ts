@@ -33,6 +33,12 @@ class MongoManager {
 
     return client.db(DEFAULT_MONGO_DATABASE)
   }
+
+  static close() {
+    setTimeout(async () => {
+      this._client!.close()
+    }, 500)
+  }
 }
 
 export const mongo = MongoManager

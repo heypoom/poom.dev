@@ -1,4 +1,5 @@
 import {
+  mongo,
   timed as t,
   verifyReferences,
   syncNotesToDatabase,
@@ -14,3 +15,5 @@ const notes = await t('parse', () => parseTarballFromBuffer(buffer))
 
 await t('verify', () => verifyReferences(notes))
 await t('sync', () => syncNotesToDatabase(notes))
+
+mongo.close()

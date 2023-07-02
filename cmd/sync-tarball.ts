@@ -1,6 +1,7 @@
 import fs from 'fs/promises'
 
 import {
+  mongo,
   timed as t,
   verifyReferences,
   syncNotesToDatabase,
@@ -15,3 +16,5 @@ const notes = await t('parse', async () => {
 
 await t('verify', () => verifyReferences(notes))
 await t('sync', () => syncNotesToDatabase(notes))
+
+mongo.close()
