@@ -1,0 +1,33 @@
+---
+import { db } from '../prepare/db'
+
+export const prerender = false
+
+const notes$ = await db.notes()
+const notes = await notes$.find().toArray()
+---
+
+<div class="bg-[#121213] text-white">
+	<main class="flex flex-col justify-center mx-auto max-w-2xl min-h-screen">
+		<section
+			class="prose prose-invert prose-a:no-underline prose-a:text-yellow-200 hover:prose-a:underline hover:prose-a:text-yellow-300 hover:prose-a:underline-offset-4"
+		>
+			<h1>Every notes in my garden.</h1>
+
+			<ul>
+				{
+					notes &&
+						notes
+							.sort((a, b) => +b.timestamp - +a.timestamp)
+							.map((note) => (
+								<li>
+									<a href={`/${note.slug}`}>{note.name}</a>
+								</li>
+							))
+				}
+			</ul>
+		</section>
+
+		{!notes && <h1 class="text-3xl">Cannot load lists of pages</h1>}
+	</main>
+</div>
