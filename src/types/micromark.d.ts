@@ -1,5 +1,5 @@
 declare module 'micromark-extension-wiki-link' {
-  const syntax: () => any
+  const syntax: (options: { aliasDivider: string }) => any
   const html: () => any
 }
 
