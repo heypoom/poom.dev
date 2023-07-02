@@ -1,4 +1,6 @@
 {
   "extends": "astro/tsconfigs/strictest",
-  "compilerOptions": {}
+  "compilerOptions": {
+    "types": ["./src/types/micromark.d.ts"]
+  }
 }

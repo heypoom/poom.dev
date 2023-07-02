@@ -1,0 +1,40 @@
+---
+import { micromark } from 'micromark'
+import { gfm, gfmHtml } from 'micromark-extension-gfm'
+
+import * as wk from 'micromark-extension-wiki-link'
+import * as fm from 'micromark-extension-frontmatter'
+
+import { db } from '../prepare/db'
+
+export const prerender = false
+
+const notes$ = await db.notes()
+
+const note = await notes$.findOne({ name: { $eq: Astro.params.note! } })
+
+let html = ''
+
+if (note) {
+	html = micromark(note.source, {
+		extensions: [gfm(), wk.syntax(), fm.frontmatter()],
+		htmlExtensions: [gfmHtml(), wk.html(), fm.frontmatterHtml()],
+	})
+}
+---
+
+<div class="bg-[#121213] text-white">
+	<main class="flex flex-col justify-center mx-auto max-w-2xl min-h-screen">
+		{
+			note && (
+				<section class="prose prose-invert">
+					<h1>{note.name}</h1>
+
+					<article set:html={html} />
+				</section>
+			)
+		}
+
+		{!note && <section>Nope. Page not found!</section>}
+	</main>
+</div>
