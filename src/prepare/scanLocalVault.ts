@@ -27,6 +27,8 @@ export async function scanLocalVault(root: string): Promise<Content[]> {
       const content: Content = {
         name: fileName.replace(/\.md$/, ''),
         path: filePath.replace(NOTES_DIR, '').replace('/', ''),
+        content: source,
+        size: stat.size,
         createdAt: stat.birthtime,
         ...metadata,
       }

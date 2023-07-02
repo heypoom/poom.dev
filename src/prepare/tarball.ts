@@ -41,6 +41,7 @@ export async function scanTarball(buffer: Buffer): Promise<Content[]> {
         name,
         path,
         size: entry.size ?? 0,
+        content: source,
         createdAt: new Date(entry.mtime ?? 0),
         ...metadata,
       }
