@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro'
 import { db } from '../prepare/db'
 import { slugify } from '../prepare'
 
-import type { Sitegraph } from '../lib/sitegraph'
+import { Sitegraph } from '../lib/sitegraph'
 
 export const get: APIRoute = async function get() {
   const graph: Sitegraph = { nodes: {} }
@@ -25,7 +25,8 @@ export const get: APIRoute = async function get() {
     }
   }
 
-  return {
-    body: JSON.stringify(graph),
-  }
+  // Validate
+  await Sitegraph.parseAsync(graph)
+
+  return { body: JSON.stringify(graph) }
 }
