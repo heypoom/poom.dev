@@ -80,6 +80,9 @@ dependencies:
   yaml-front-matter:
     specifier: ^4.1.1
     version: 4.1.1
+  zod:
+    specifier: ^3.21.4
+    version: 3.21.4
 
 devDependencies:
   '@types/degit':
