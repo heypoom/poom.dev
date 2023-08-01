@@ -12,6 +12,7 @@
     "esno": "esno",
     "sync:repo": "esno cmd/sync-repo",
     "sync:local": "esno cmd/sync-local",
+    "sync:local:daemon": "esno cmd/sync-local-daemon",
     "sync:tarball": "esno cmd/sync-tarball",
     "save:tarball": "esno cmd/save-tarball"
   },
@@ -47,10 +48,12 @@
     "@types/degit": "^2.8.3",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.3.2",
+    "@types/node-cron": "^3.0.8",
     "@types/tar": "^6.1.5",
     "@types/yaml-front-matter": "^4.1.0",
     "chalk": "^5.2.0",
     "esno": "^0.16.3",
+    "node-cron": "^3.0.2",
     "vitest": "^0.32.2"
   }
 }
