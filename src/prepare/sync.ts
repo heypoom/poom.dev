@@ -3,7 +3,12 @@ import { createSnapshot, diffSnapshot } from './snapshot'
 
 import type { Note, SnapshotRecord } from './types'
 
-export async function syncNotesToDatabase(notes: Note[]) {
+const defaultOptions: { verbose: boolean } = { verbose: true }
+
+export async function syncNotesToDatabase(
+  notes: Note[],
+  flags = defaultOptions
+) {
   try {
     const notes$ = await db.notes()
     const snapshots$ = await db.snapshots()
@@ -16,7 +21,7 @@ export async function syncNotesToDatabase(notes: Note[]) {
 
     // Diff the current and incoming snapshots.
     const diffs = diffSnapshot(oldSnapshot, newSnapshot)
-    console.log('diffs:', diffs)
+    if (flags.verbose) console.log('diffs:', diffs)
 
     // Insert the notes to insert.
     if (diffs.added.length > 0) {

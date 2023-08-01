@@ -12,6 +12,7 @@
     "esno": "esno",
     "sync:repo": "esno cmd/sync-repo",
     "sync:local": "esno cmd/sync-local",
+    "sync:local:silent": "esno cmd/sync-local-silent",
     "sync:local:daemon": "esno cmd/sync-local-daemon",
     "sync:tarball": "esno cmd/sync-tarball",
     "save:tarball": "esno cmd/save-tarball"
