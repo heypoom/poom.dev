@@ -1,6 +1,6 @@
 import { MongoClient, ServerApiVersion, Document } from 'mongodb'
 
-import { MONGO_URI, DEFAULT_MONGO_DATABASE } from './constants'
+import { MONGODB_URI, DEFAULT_MONGO_DATABASE } from './constants'
 
 import type { SnapshotRecord, Note } from './types'
 
@@ -10,9 +10,9 @@ class MongoManager {
   static async get(): Promise<MongoClient> {
     if (MongoManager._client) return MongoManager._client!
 
-    if (!MONGO_URI) throw new Error('MONGO_URI is not defined!')
+    if (!MONGODB_URI) throw new Error('MONGODB_URI is not defined!')
 
-    const client = new MongoClient(MONGO_URI, {
+    const client = new MongoClient(MONGODB_URI, {
       serverApi: {
         version: ServerApiVersion.v1,
         strict: true,
