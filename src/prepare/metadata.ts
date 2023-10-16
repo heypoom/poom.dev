@@ -4,6 +4,7 @@ import { getLinks } from './links'
 import type { NoteMeta } from './types'
 
 import { default as Front } from 'yaml-front-matter'
+import { getTags } from './tags'
 
 export async function extractMetadata(
   source: string
@@ -15,7 +16,11 @@ export async function extractMetadata(
     const meta = Front.loadFront(source)
     if (meta.public !== true && meta.Public !== true) return null
 
-    return { links: getLinks(source), metadata: omit(meta, ['__content']) }
+    return {
+      links: getLinks(source),
+      tags: getTags(source),
+      metadata: omit(meta, ['__content']),
+    }
   } catch (err) {
     return null
   }
