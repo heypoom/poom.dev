@@ -12,9 +12,9 @@ My name is #poom
 
 it('should parse the hashtags correctly', () => {
   expect(getTags(TEST_CONTENT)).toEqual([
-    '#world',
-    '#poom',
-    '#foo',
-    '#Creatorsgarten',
+    'world',
+    'poom',
+    'foo',
+    'Creatorsgarten',
   ])
 })
