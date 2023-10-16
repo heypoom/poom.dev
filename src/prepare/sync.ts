@@ -50,6 +50,13 @@ export async function syncNotesToDatabase(
       latest: true,
     }
 
+    snapshots$.insertOne({
+      ...snapshotRecord,
+
+      // Indicates that the snapshot is a backup.
+      latest: false,
+    })
+
     snapshots$.updateOne(
       { latest: { $eq: true } },
       { $set: snapshotRecord },
