@@ -25,7 +25,6 @@ export const GET: APIRoute = async () => {
     }
   }
 
-  // Validate
   await Sitegraph.parseAsync(graph)
 
   return new Response(JSON.stringify(graph))
