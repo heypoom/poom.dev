@@ -1,11 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro'
-import Webring from '../components/Webring.astro'
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
-
-import { Content as About } from '../data/about.mdx'
-import { Content as Contact } from '../data/contact.mdx'
 
 import '../styles/about.css'
 ---
@@ -17,12 +13,16 @@ import '../styles/about.css'
 	</head>
 
 	<body>
-		<main class="max-w-[500px] mx-auto px-2 py-5">
-      <h1>Talks</h1>
+		<div class="max-w-[1200px] mx-auto px-2 py-5">
+      <main>
+        <h1>Projects</h1>
 
-      <h1>Projects</h1>
+        <h1>People</h1>
 
-      <h1>Writings</h1>
-		</main>
+        <h1>Talks</h1>
+
+        <h1>Writings</h1>
+      </main>
+		</div>
 	</body>
 </html>
