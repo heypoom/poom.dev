@@ -13,13 +13,13 @@ export const Sitegraph = z.object({
                 .string()
                 .optional()
                 .describe('The display text of the link.'),
-            })
+            }),
           )
           .describe('Outgoing links from this page.'),
-      })
+      }),
     )
     .describe(
-      'A node in the sitegraph, like a page. The key should be a URL path.'
+      'A node in the sitegraph, like a page. The key should be a URL path.',
     ),
 })
 

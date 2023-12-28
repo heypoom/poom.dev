@@ -1,6 +1,6 @@
 export const timed = async <F extends (...args: any[]) => any>(
   task: string,
-  callback: F
+  callback: F,
 ): Promise<ReturnType<F>> => {
   try {
     console.time(task)

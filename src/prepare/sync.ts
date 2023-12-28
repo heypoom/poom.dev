@@ -7,7 +7,7 @@ const defaultOptions: { verbose: boolean } = { verbose: true }
 
 export async function syncNotesToDatabase(
   notes: Note[],
-  flags = defaultOptions
+  flags = defaultOptions,
 ) {
   try {
     const notes$ = await db.notes()
@@ -60,7 +60,7 @@ export async function syncNotesToDatabase(
     snapshots$.updateOne(
       { latest: { $eq: true } },
       { $set: snapshotRecord },
-      { upsert: true }
+      { upsert: true },
     )
   } catch (err) {
     console.warn('Cannot sync notes to database:', err)
