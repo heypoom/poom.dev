@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion, Document } from 'mongodb'
+import { MongoClient, ServerApiVersion, type Document } from 'mongodb'
 
 import { MONGODB_URI, DEFAULT_MONGO_DATABASE } from './constants'
 

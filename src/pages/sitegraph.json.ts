@@ -5,7 +5,7 @@ import { slugify } from '../prepare'
 
 import { Sitegraph } from '../lib/sitegraph'
 
-export const get: APIRoute = async function get() {
+export const GET: APIRoute = async () => {
   const graph: Sitegraph = { nodes: {} }
 
   const notes$ = await db.notes()
@@ -28,5 +28,5 @@ export const get: APIRoute = async function get() {
   // Validate
   await Sitegraph.parseAsync(graph)
 
-  return { body: JSON.stringify(graph) }
+  return new Response(JSON.stringify(graph))
 }
