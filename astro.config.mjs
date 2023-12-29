@@ -12,7 +12,9 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap(),
-    tailwind(),
+    tailwind({
+      applyBaseStyles: true,
+    }),
     partytown()
   ],
   output: 'hybrid',
