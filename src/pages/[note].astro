@@ -57,7 +57,7 @@ if (note) {
 				{
 					note && (
 						<section class="py-12 font-sans">
-							<h1>{note.name}</h1>
+							<h1 class="text-2xl font-semibold text-gray-800 mb-4">{note.name}</h1>
 
 							<article
                 set:html={html}
@@ -65,19 +65,21 @@ if (note) {
                   leading-7
                   text-gray-800 flex flex-col gap-y-3
                   text-lg
-                  [&>h1]:text-2xl
-                  [&>h1]:font-semibold
-                  [&>h1]:mt-6
-                  [&>h1]:mb-1
-                  [&>pre]:whitespace-pre-wrap
-                  [&>pre]:text-sm
-                  [&>pre]:p-6
-                  [&>pre]:text-gray-600
-                  [&>pre]:leading-relaxed
-                  [&>pre]:border
-                  [&>pre]:rounded
-                  [&>pre]:border-gray-200
-                  [&>pre]:mt-2
+                  [&_h1]:text-2xl
+                  [&_h1]:font-semibold
+                  [&_h1]:mt-6
+                  [&_h1]:mb-1
+                  [&_pre]:whitespace-pre-wrap
+                  [&_pre]:text-sm
+                  [&_pre]:p-6
+                  [&_pre]:text-gray-600
+                  [&_pre]:leading-relaxed
+                  [&_pre]:border
+                  [&_pre]:rounded
+                  [&_pre]:border-gray-200
+                  [&_pre]:mt-2
+                  [&_a]:text-cyan-800
+                  [&_a]:underline
                 "
               />
 						</section>
