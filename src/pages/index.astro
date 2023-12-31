@@ -6,7 +6,7 @@ import BaseHead from '../components/BaseHead.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 import { db } from '../prepare/db'
 
-export const prerender = false
+export const prerender = true
 
 const notes$ = await db.notes()
 
