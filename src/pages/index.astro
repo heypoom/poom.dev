@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components'
 
 import BaseHead from '../components/BaseHead.astro'
+import Webring from '../components/Webring.astro'
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 import { db } from '../prepare/db'
@@ -41,6 +42,10 @@ const writings = await notes$
             ))}
           </div>
         </section>
+
+        <div class="mt-8">
+          <Webring />
+        </div>
       </main>
 		</div>
 	</body>
