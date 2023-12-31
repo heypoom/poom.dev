@@ -2,8 +2,6 @@
 import { micromark } from 'micromark'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 
-import '../styles/note.css'
-
 import * as wk from 'micromark-extension-wiki-link'
 import * as fm from 'micromark-extension-frontmatter'
 
@@ -46,22 +44,42 @@ if (note) {
 <html lang="en">
 	<head>
 		<BaseHead
-			title={`${note?.name ?? 'Memo'} | Phoomparin Mano`}
-			description={SITE_DESCRIPTION}
+			title={`${note?.name ?? 'Memo'}`}
+			description=""
 		/>
 	</head>
 
 	<body>
-		<div class="bg-[#121213] text-white">
+		<div class="text-white">
 			<main
-				class="flex flex-col justify-center mx-auto max-w-2xl min-h-screen px-8 break-words"
+				class="flex flex-col justify-center mx-auto max-w-3xl min-h-screen px-8 break-words"
 			>
 				{
 					note && (
-						<section class="prose prose-invert prose-a:no-underline prose-a:text-yellow-200 hover:prose-a:underline hover:prose-a:text-yellow-300 hover:prose-a:underline-offset-4 py-24">
+						<section class="py-12 font-sans">
 							<h1>{note.name}</h1>
 
-							<article set:html={html} />
+							<article
+                set:html={html}
+                class="
+                  leading-7
+                  text-gray-800 flex flex-col gap-y-3
+                  text-lg
+                  [&>h1]:text-2xl
+                  [&>h1]:font-semibold
+                  [&>h1]:mt-6
+                  [&>h1]:mb-1
+                  [&>pre]:whitespace-pre-wrap
+                  [&>pre]:text-sm
+                  [&>pre]:p-6
+                  [&>pre]:text-gray-600
+                  [&>pre]:leading-relaxed
+                  [&>pre]:border
+                  [&>pre]:rounded
+                  [&>pre]:border-gray-200
+                  [&>pre]:mt-2
+                "
+              />
 						</section>
 					)
 				}
