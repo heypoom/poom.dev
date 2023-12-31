@@ -1,18 +1,21 @@
 ---
+import { Icon } from 'astro-icon/components'
+
 import BaseHead from '../components/BaseHead.astro'
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 import { db } from '../prepare/db'
 
-import '../styles/about.css'
+export const prerender = false
 
 const notes$ = await db.notes()
 
-const projects = await notes$
+const writings = await notes$
 	.find(
-    { slug: { $exists: true } },
-    { projection: { slug: 1, name: 1 }}
+    { slug: { $exists: true }, 'metadata.publish': { $in: ['poom.blogs'] } },
+    { projection: { slug: 1, name: 1, timestamp: 1 }}
   )
+  .sort({ timestamp: -1 })
 	.toArray()
 ---
 
@@ -23,21 +26,21 @@ const projects = await notes$
 	</head>
 
 	<body>
-		<div class="max-w-[1200px] mx-auto px-2 py-5 bg-gray-950 text-gray-100 min-h-screen">
+		<div class="flex items-center justify-center px-2 py-2 min-h-screen">
       <main>
-        <h1>Projects</h1>
+        <section class="space-y-2">
+          <div class="flex flex-col text-xl gap-y-2">
+            {writings.map(note => (
+              <a class="flex gap-x-3 items-center text-slate-800 hover:text-cyan-800 group cursor-pointer" href={note.slug}>
+                <Icon name="material-symbols:note" class="text-2xl" />
 
-        <h1>People</h1>
-
-        <h1>Talks</h1>
-
-        <h1>Writings</h1>
-
-        <div>
-          {projects.map(project => (
-            <div>{project.name}</div> 
-          ))}
-        </div>
+                <p class="text-center group-hover:underline group-hover:underline-offset-2">
+                  {note.name}
+                </p> 
+              </a>
+            ))}
+          </div>
+        </section>
       </main>
 		</div>
 	</body>
