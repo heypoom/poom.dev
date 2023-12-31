@@ -2,8 +2,18 @@
 import BaseHead from '../components/BaseHead.astro'
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
+import { db } from '../prepare/db'
 
 import '../styles/about.css'
+
+const notes$ = await db.notes()
+
+const projects = await notes$
+	.find(
+    { slug: { $exists: true } },
+    { projection: { slug: 1, name: 1 }}
+  )
+	.toArray()
 ---
 
 <!DOCTYPE html>
@@ -22,6 +32,12 @@ import '../styles/about.css'
         <h1>Talks</h1>
 
         <h1>Writings</h1>
+
+        <div>
+          {projects.map(project => (
+            <div>{project.name}</div> 
+          ))}
+        </div>
       </main>
 		</div>
 	</body>

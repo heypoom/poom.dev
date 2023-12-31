@@ -14,7 +14,10 @@ export async function extractMetadata(
 
   try {
     const meta = Front.loadFront(source)
-    if (meta.public !== true && meta.Public !== true) return null
+
+    const isPublic = meta.public === true
+    const isPublish = Array.isArray(meta.publish) && meta.publish.length > 0
+    if (!isPublic && !isPublish) return null
 
     return {
       links: getLinks(source),

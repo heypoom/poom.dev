@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
-import vercel from '@astrojs/vercel/serverless'
+import node from '@astrojs/node';
 
 import partytown from "@astrojs/partytown"
 
@@ -18,6 +18,6 @@ export default defineConfig({
     partytown()
   ],
   output: 'hybrid',
-  adapter: vercel()
+  adapter: node({mode: 'standalone'}),
 })
 
