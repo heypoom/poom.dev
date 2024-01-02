@@ -23,6 +23,8 @@ const slugs = await notes$
   .map((s) => s.slug)
   .toArray()
 
+const imageRegex = /.*\.(jpg|jpeg|png|webp|heic)$/
+
 let html = ''
 
 if (note) {
@@ -35,10 +37,22 @@ if (note) {
       aliasDivider: '|',
       permalinks: slugs ?? [],
       pathFormat: 'obsidian-short',
-      wikiLinkResolver: (name) => [slugify(name)],
+      wikiLinkResolver: (name) => {
+        if (imageRegex.test(name)) {
+          return [`https://example.com/${name}`]
+        }
+
+        return [slugify(name)]
+      },
       newClassName: 'new',
       wikiLinkClassName: 'internal',
-      hrefTemplate: (name) => `/${name}`,
+      hrefTemplate: (name) => {
+        if (imageRegex.test(name)) {
+          return name
+        }
+
+        return `/${name}`
+      },
     })
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeStringify, { allowDangerousHtml: true })
