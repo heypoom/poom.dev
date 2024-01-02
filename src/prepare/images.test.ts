@@ -9,11 +9,16 @@ Here is the photo of my dog, foo foo.
 he is very cute!
 
 ![here's him at the pool, what a cute dog!](./foo foo at the pool.heic)
+
+here is another image
+
+![[celestial dragons@3x.png|500]]
 `
 
 it('should parse the markdown images correctly', () => {
   expect(getImages(TEST_CONTENT)).toEqual([
     'air chief marshal foo foo.jpg',
     './foo foo at the pool.heic',
+    'celestial dragons@3x.png',
   ])
 })

@@ -14,9 +14,10 @@ export const matchText = (regex: RegExp, source: string): string[] => {
   return links
 }
 
-const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?)\.md\)/g
+const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?)\.md\)/g     
+
 const imageRegex =
-  /\!\[\[(?:.+?\|)?(.+?)\]\]|\!\[.+?\]\(((.+?)\.(png|jpg|jpeg|heic|webp))\)/g
+  /\!\[\[(.+?)(?:\|\d+)?\]\]|\!\[.+?\]\(((.+?)\.(png|jpg|jpeg|heic|webp))\)/g
 
 export const getLinks = (text: string) =>
   matchText(linkRegex, text).map((link) => link.replace(/\.md$/, ''))

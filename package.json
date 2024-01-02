@@ -32,6 +32,7 @@
     "@portaljs/remark-callouts": "^1.0.5",
     "@portaljs/remark-embed": "^1.0.4",
     "@portaljs/remark-wiki-link": "^1.1.2",
+    "@silvia-odwyer/photon-node": "^0.3.3",
     "@tailwindcss/typography": "^0.5.10",
     "astro": "^4.0.8",
     "astro-icon": "^1.0.1",
@@ -46,6 +47,7 @@
     "micromark-extension-wiki-link": "^0.0.4",
     "minipass": "^7.0.4",
     "mongodb": "^6.3.0",
+    "p-queue": "^8.0.1",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-katex": "^6.0.2",
     "rehype-prism-plus": "^1.5.1",
@@ -61,6 +63,7 @@
     "remark-smartypants": "^2.0.0",
     "remark-toc": "^8.0.1",
     "remark-wiki-link-plus": "^1.1.1",
+    "sharp": "^0.33.1",
     "simple-git": "^3.21.0",
     "strip-markdown": "^5.0.0",
     "svelte": "^4.2.8",
@@ -87,7 +90,8 @@
     "tailwindcss": "^3.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
-    "vitest": "^1.1.1"
+    "vitest": "^1.1.1",
+    "wrangler": "^3.22.1"
   },
   "pnpm": {
     "overrides": {
