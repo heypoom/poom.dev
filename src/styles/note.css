@@ -1,1 +1,3 @@
-
+p:has(> .garden-image) {
+  align-self: center;
+}

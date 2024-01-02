@@ -9,6 +9,8 @@ import { visit } from 'unist-util-visit'
 import { remarkWikiLink } from '@portaljs/remark-wiki-link'
 import cx from 'classnames'
 
+import '../styles/note.css'
+
 import { db } from '../prepare/db'
 
 import BaseHead from '../components/BaseHead.astro'
@@ -145,6 +147,7 @@ if (note) {
                   [&_img]:rounded
                   [&_img]:my-2
                   [&_img]:object-fill
+                  [&_img]:max-h-[700px]
                   [&_blockquote]:font-mono
                   [&_blockquote]:text-gray-400
                   [&_blockquote]:py-1
