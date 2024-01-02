@@ -1,10 +1,9 @@
-import omit from 'lodash/omit'
+import matter from 'gray-matter'
+
 import { getImages, getLinks } from './links'
+import { getTags } from './tags'
 
 import type { NoteMeta } from './types'
-
-import matter from 'gray-matter'
-import { getTags } from './tags'
 
 export async function extractMetadata(
   source: string,
@@ -13,7 +12,7 @@ export async function extractMetadata(
   if (!/---/.test(source)) return null
 
   try {
-    const meta = matter(source)?.data
+    const { data: meta } = matter(source)
 
     const isPublic = meta.public === true
     const isPublish = Array.isArray(meta.publish) && meta.publish.length > 0
@@ -23,7 +22,7 @@ export async function extractMetadata(
       links: getLinks(source),
       images: getImages(source),
       tags: getTags(source),
-      metadata: omit(meta, ['__content']),
+      metadata: meta,
     }
   } catch (err) {
     return null
