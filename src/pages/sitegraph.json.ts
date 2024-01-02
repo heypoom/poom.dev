@@ -5,8 +5,6 @@ import { slugify } from '../prepare'
 
 import { Sitegraph } from '../lib/sitegraph'
 
-export const prerender = false
-
 export const GET: APIRoute = async () => {
   const graph: Sitegraph = { nodes: {} }
 
