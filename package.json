@@ -19,13 +19,13 @@
     "save:tarball": "esno cmd/save-tarball"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^8.0.1",
     "@astrojs/mdx": "^2.0.3",
     "@astrojs/node": "^7.0.3",
     "@astrojs/partytown": "^2.0.3",
     "@astrojs/rss": "^4.0.1",
     "@astrojs/sitemap": "^3.0.4",
     "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vercel": "^6.1.1",
     "@octokit/app": "^14.0.2",
     "@octokit/auth-token": "^4.0.0",
     "@octokit/rest": "^20.0.2",

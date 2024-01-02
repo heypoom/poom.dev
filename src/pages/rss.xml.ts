@@ -2,6 +2,8 @@ import rss from '@astrojs/rss'
 
 import { db } from '../prepare/db'
 
+export const prerender = false
+
 export async function GET(context) {
   const notes$ = await db.notes()
 
