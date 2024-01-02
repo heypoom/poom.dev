@@ -7,6 +7,7 @@ import rehypeStringify from 'rehype-stringify'
 import matter from 'gray-matter'
 import { visit } from 'unist-util-visit'
 import { remarkWikiLink } from '@portaljs/remark-wiki-link'
+import cx from 'classnames'
 
 import { db } from '../prepare/db'
 
@@ -68,6 +69,25 @@ if (note) {
       })
     })
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(() => (root) => {
+      let id = 0
+
+      visit(root, 'element', (node) => {
+        const el = node as any
+
+        if (el.tagName === 'img') {
+          el.properties = {
+            ...el.properties,
+            className: cx(el.properties.className, 'garden-image'),
+
+            // do not lazy load the first image!
+            ...(id > 0 && {loading: 'lazy'}),
+          }
+
+          id++
+        }
+      })
+    })
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content)
 
