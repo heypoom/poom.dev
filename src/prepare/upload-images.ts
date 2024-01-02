@@ -6,6 +6,7 @@ import type { Note } from './types'
 import { homedir } from 'os'
 import path from 'path'
 import sharp from 'sharp'
+import { getPublicImageMeta, uploadPublicImageFile } from '../lib/r2'
 
 const NOTES_PATH = path.resolve(homedir(), 'notes')
 const ASSETS_PATH = path.resolve(NOTES_PATH, 'Resources/Assets')
@@ -20,7 +21,7 @@ const exists = async (path: string) => {
 }
 
 export async function uploadImages(notes: Note[]) {
-  const queue = new PQueue({ concurrency: 30 })
+  const queue = new PQueue({ concurrency: 20 })
 
   const linkedImages = _.uniq(notes.flatMap((note) => note.images))
   console.log(`found ${linkedImages.length} linked images`)
@@ -35,21 +36,41 @@ export async function uploadImages(notes: Note[]) {
     }
 
     queue.add(async () => {
-      const buffer = await readFile(imagePath)
-      console.log(`[+] uploading image "${imageName}" (${buffer.length} bytes)`)
-      //
-      // const image = sharp(buffer)
-      // const meta = await image.metadata()
-      // const { format } = meta
-      //
-      // if (format === 'jpg' || format === 'jpeg') {
-      //   const out = await image.jpeg({ quality: 80, mozjpeg: true }).toBuffer()
-      // }
+      const objectMeta = await getPublicImageMeta(imageName)
 
-      // 2 - compress the images with Proton
-      // 3 - upload the images to R2
+      // image with the same name has been uploaded before
+      if (objectMeta) {
+        console.log(`[-] "${imageName}" already uploaded`, objectMeta)
+        return
+      }
+
+      console.log(`[+] reading "${imageName}"`)
+
+      const buffer = await readFile(imagePath)
+
+      const image = sharp(buffer)
+      const meta = await image.metadata()
+      const { format } = meta
+
+      console.log(`[+] compressing "${imageName}"`)
+
+      let out = buffer
+
+      if (format === 'jpg' || format === 'jpeg') {
+        out = await image.jpeg({ quality: 80, mozjpeg: true }).toBuffer()
+      } else if (format === 'png') {
+        out = await image.png({ compressionLevel: 9 }).toBuffer()
+      }
+
+      console.log(`[+] uploading "${imageName}"`)
+
+      await uploadPublicImageFile(imageName, out)
+
+      console.log(`[+] uploaded "${imageName}" to Cloudflare R2`)
     })
   }
 
   await queue.onIdle()
+
+  console.log('[+] done uploading all images!')
 }
