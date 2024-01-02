@@ -13,6 +13,7 @@ export interface Note extends FileMeta, NoteMeta {
 export interface NoteMeta {
   tags: string[]
   links: string[]
+  images: string[]
   metadata: Record<string, any>
 }
 

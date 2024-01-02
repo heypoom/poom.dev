@@ -1,5 +1,5 @@
 import omit from 'lodash/omit'
-import { getLinks } from './links'
+import { getImages, getLinks } from './links'
 
 import type { NoteMeta } from './types'
 
@@ -21,6 +21,7 @@ export async function extractMetadata(
 
     return {
       links: getLinks(source),
+      images: getImages(source),
       tags: getTags(source),
       metadata: omit(meta, ['__content']),
     }

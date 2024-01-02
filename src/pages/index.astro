@@ -12,34 +12,42 @@ export const prerender = true
 const notes$ = await db.notes()
 
 const writings = await notes$
-	.find(
+  .find(
     { slug: { $exists: true }, 'metadata.publish': { $in: ['poom.blogs'] } },
-    { projection: { slug: 1, name: 1, timestamp: 1 }}
+    { projection: { slug: 1, name: 1, timestamp: 1 } },
   )
   .sort({ timestamp: -1 })
-	.toArray()
+  .toArray()
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
 
-	<body>
-		<div class="flex items-center justify-center px-6 py-2 min-h-screen">
+  <body>
+    <div class="flex items-center justify-center px-6 py-2 min-h-screen">
       <main>
         <section class="space-y-2">
           <div class="flex flex-col sm:text-xl gap-y-2">
-            {writings.map(note => (
-              <a class="flex gap-x-3 justify-start items-center text-slate-800 hover:text-cyan-800 group cursor-pointer" href={note.slug}>
-                <Icon name="material-symbols:note" class="flex-[0_0_20px] size-5" />
+            {
+              writings.map((note) => (
+                <a
+                  class="flex gap-x-3 justify-start items-center text-slate-800 hover:text-cyan-800 group cursor-pointer"
+                  href={note.slug}
+                >
+                  <Icon
+                    name="material-symbols:note"
+                    class="flex-[0_0_20px] size-5"
+                  />
 
-                <p class="group-hover:underline group-hover:underline-offset-2">
-                  {note.name}
-                </p> 
-              </a>
-            ))}
+                  <p class="group-hover:underline group-hover:underline-offset-2">
+                    {note.name}
+                  </p>
+                </a>
+              ))
+            }
           </div>
         </section>
 
@@ -47,6 +55,6 @@ const writings = await notes$
           <Webring />
         </div>
       </main>
-		</div>
-	</body>
+    </div>
+  </body>
 </html>

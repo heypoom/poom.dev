@@ -1,5 +1,3 @@
-
-
 export const matchText = (regex: RegExp, source: string): string[] => {
   const links: string[] = []
 
@@ -17,11 +15,10 @@ export const matchText = (regex: RegExp, source: string): string[] => {
 }
 
 const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?)\.md\)/g
-const imageRegex = /\!\[\[(?:.+?\|)?(.+?)\]\]|\!\[.+?\]\(((.+?)\.(png|jpg|jpeg|heic|webp))\)/g
+const imageRegex =
+  /\!\[\[(?:.+?\|)?(.+?)\]\]|\!\[.+?\]\(((.+?)\.(png|jpg|jpeg|heic|webp))\)/g
 
 export const getLinks = (text: string) =>
-  matchText(linkRegex, text).map(link => link.replace(/\.md$/, ''))
+  matchText(linkRegex, text).map((link) => link.replace(/\.md$/, ''))
 
-export const getImages = (text: string) =>
-  matchText(imageRegex, text)
-
+export const getImages = (text: string) => matchText(imageRegex, text)

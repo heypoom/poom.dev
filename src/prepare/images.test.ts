@@ -13,7 +13,7 @@ he is very cute!
 
 it('should parse the markdown images correctly', () => {
   expect(getImages(TEST_CONTENT)).toEqual([
-   "air chief marshal foo foo.jpg",
-   "./foo foo at the pool.heic",
+    'air chief marshal foo foo.jpg',
+    './foo foo at the pool.heic',
   ])
 })

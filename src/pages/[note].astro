@@ -1,9 +1,11 @@
 ---
-import { micromark } from 'micromark'
-import { gfm, gfmHtml } from 'micromark-extension-gfm'
-
-import * as wk from 'micromark-extension-wiki-link'
-import * as fm from 'micromark-extension-frontmatter'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkGfm from 'remark-gfm'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
+import matter from 'gray-matter'
+import { remarkWikiLink } from '@portaljs/remark-wiki-link'
 
 import { db } from '../prepare/db'
 
@@ -17,48 +19,54 @@ const notes$ = await db.notes()
 const note = await notes$.findOne({ slug: { $eq: Astro.params.note! } })
 
 const slugs = await notes$
-	.find({ slug: { $exists: true } }, { projection: { slug: 1 } })
-	.map((s) => s.slug)
-	.toArray()
+  .find({ slug: { $exists: true } }, { projection: { slug: 1 } })
+  .map((s) => s.slug)
+  .toArray()
 
 let html = ''
 
 if (note) {
-	html = micromark(note.source, {
-		extensions: [gfm(), wk.syntax({ aliasDivider: '|' }), fm.frontmatter()],
-		htmlExtensions: [
-			gfmHtml(),
-			wk.html({
-				permalinks: slugs ?? [],
-				pageResolver: (name) => [slugify(name)],
-				hrefTemplate: (name) => `/${name}`,
-			}),
-			fm.frontmatterHtml(),
-		],
-	})
+  const { content } = matter(note.source)
+
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkWikiLink, {
+      aliasDivider: '|',
+      permalinks: slugs ?? [],
+      pathFormat: 'obsidian-short',
+      wikiLinkResolver: (name) => [slugify(name)],
+      newClassName: 'new',
+      wikiLinkClassName: 'internal',
+      hrefTemplate: (name) => `/${name}`,
+    })
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(content)
+
+  html = file.toString()
 }
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead
-			title={`${note?.name ?? 'Memo'}`}
-			description=""
-		/>
-	</head>
+  <head>
+    <BaseHead title={`${note?.name ?? 'Memo'}`} description="" />
+  </head>
 
-	<body>
-		<div class="text-white">
-			<main
-				class="flex flex-col justify-center mx-auto max-w-3xl min-h-screen px-8 break-words"
-			>
-				{
-					note && (
-						<section class="py-12 font-sans">
-							<h1 class="text-2xl font-semibold text-gray-800 mb-4">{note.name}</h1>
+  <body>
+    <div class="text-white">
+      <main
+        class="flex flex-col justify-center mx-auto max-w-3xl min-h-screen px-8 break-words"
+      >
+        {
+          note && (
+            <section class="py-12 font-sans">
+              <h1 class="text-2xl font-semibold text-gray-800 mb-4">
+                {note.name}
+              </h1>
 
-							<article
+              <article
                 set:html={html}
                 class="
                   leading-7
@@ -89,16 +97,16 @@ if (note) {
                   [&_a]:underline
                 "
               />
-						</section>
-					)
-				}
+            </section>
+          )
+        }
 
-				{
-					!note && (
-						<h1 class="text-3xl">The page you were looking for is gone!</h1>
-					)
-				}
-			</main>
-		</div>
-	</body>
+        {
+          !note && (
+            <h1 class="text-3xl">The page you were looking for is gone!</h1>
+          )
+        }
+      </main>
+    </div>
+  </body>
 </html>

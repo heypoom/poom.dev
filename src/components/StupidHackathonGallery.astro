@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content'
 const events = await getCollection('events')
 
 const hackathons = events.filter((e) =>
-  e.data.tags.includes('stupid-hackathon')
+  e.data.tags.includes('stupid-hackathon'),
 )
 ---
 
