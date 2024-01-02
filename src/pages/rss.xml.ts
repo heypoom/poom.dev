@@ -2,7 +2,7 @@ import rss from '@astrojs/rss'
 
 import { db } from '../prepare/db'
 
-export async function GET(context) {
+export async function GET(context: any) {
   const notes$ = await db.notes()
 
   const writings = await notes$

@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import matter from 'gray-matter'
+import { visit } from 'unist-util-visit'
 import { remarkWikiLink } from '@portaljs/remark-wiki-link'
 
 import { db } from '../prepare/db'
@@ -27,6 +28,8 @@ const imageRegex = /.*\.(jpg|jpeg|png|webp|heic)$/
 
 let html = ''
 
+const IMAGE_URL_PREFIX = 'https://images.poom.dev'
+
 if (note) {
   const { content } = matter(note.source)
 
@@ -39,8 +42,8 @@ if (note) {
       pathFormat: 'obsidian-short',
       wikiLinkResolver: (name) => {
         if (imageRegex.test(name)) {
-          return [`https://images.poom.dev/${name}`]
-        }
+          return [name]
+       }
 
         return [slugify(name)]
       },
@@ -48,11 +51,21 @@ if (note) {
       wikiLinkClassName: 'internal',
       hrefTemplate: (name) => {
         if (imageRegex.test(name)) {
-          return name
+          return `${IMAGE_URL_PREFIX}/${name}`
         }
 
         return `/${name}`
       },
+    })
+    .use(() => (root) => {
+      visit(root, 'image', n => {
+        const node = n as any
+
+        const relativeUrl = node.url.replace(/^\//, "")
+        const absolutePath = `${IMAGE_URL_PREFIX}/`
+
+        node.url = new URL(relativeUrl, absolutePath).href
+      })
     })
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeStringify, { allowDangerousHtml: true })
