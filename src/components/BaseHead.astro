@@ -6,7 +6,7 @@ import '../styles/global.css'
 export interface Props {
   title: string
   description: string
-  image?: string
+  image?: string | null
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
@@ -33,7 +33,8 @@ const { title, description, image = '/poom.jpg' } = Astro.props
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+
+{image && <meta property="og:image" content={new URL(image, Astro.url)} />}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />

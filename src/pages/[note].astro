@@ -98,7 +98,7 @@ if (note) {
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={`${note?.name ?? 'Memo'}`} description="" />
+    <BaseHead title={`${note?.name ?? 'Memo'}`} description="" image={null} />
   </head>
 
   <body>
@@ -144,6 +144,7 @@ if (note) {
                   [&_a]:underline
                   [&_img]:rounded
                   [&_img]:my-2
+                  [&_img]:object-fill
                 "
               />
             </section>
