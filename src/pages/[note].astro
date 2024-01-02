@@ -39,7 +39,7 @@ if (note) {
       pathFormat: 'obsidian-short',
       wikiLinkResolver: (name) => {
         if (imageRegex.test(name)) {
-          return [`https://example.com/${name}`]
+          return [`https://images.poom.dev/${name}`]
         }
 
         return [slugify(name)]
