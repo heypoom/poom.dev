@@ -3,7 +3,7 @@ import { getImages, getLinks } from './links'
 
 import type { NoteMeta } from './types'
 
-import { default as Front } from 'yaml-front-matter'
+import matter from 'gray-matter'
 import { getTags } from './tags'
 
 export async function extractMetadata(
@@ -13,7 +13,7 @@ export async function extractMetadata(
   if (!/---/.test(source)) return null
 
   try {
-    const meta = Front.loadFront(source)
+    const meta = matter(source)?.data
 
     const isPublic = meta.public === true
     const isPublish = Array.isArray(meta.publish) && meta.publish.length > 0
