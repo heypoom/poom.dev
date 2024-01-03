@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ['Hanken Grotesk'],
-      mono: ['IBM Plex Mono'],
+      sans: ['Hanken Grotesk', 'Noto Sans Thai Looped', 'sans-serif'],
+      mono: ['IBM Plex Mono', 'Noto Sans Thai Looped', 'monospace'],
     },
   },
   plugins: [
