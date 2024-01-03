@@ -30,10 +30,11 @@ const note = await notes$.findOne({
   slug: { $eq: Astro.params.note! }
 })
 
-const slugs = await notes$
-  .find({ slug: { $exists: true } }, { projection: { slug: 1 } })
-  .map((s) => s.slug)
+const publicNotes = await notes$
+  .find({ slug: { $exists: true }, $or: [{"metadata.public": true}, {"metadata.published": {$exists: true}}] }, { projection: { slug: 1, name: 1 } })
   .toArray()
+
+const slugs = publicNotes.map((note) => note.slug)
 
 const imageRegex = /.*\.(jpg|jpeg|png|webp|heic)$/
 
@@ -54,7 +55,10 @@ if (note) {
       wikiLinkResolver: (name) => {
         if (imageRegex.test(name)) {
           return [name]
-       }
+        }
+
+        const targetNote = publicNotes.find(n => n.name === name)
+        if (targetNote) return [targetNote.slug]
 
         return [slugify(name)]
       },
