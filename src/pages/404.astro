@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components'
+
+import BaseHead from '../components/BaseHead.astro'
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="This page is not available." description="" image={null} />
+  </head>
+
+  <body>
+    <div class="text-white">
+      <main
+        class="flex flex-col justify-center mx-auto max-w-3xl min-h-screen px-8 break-words"
+      >
+        <section class="text-blue-600 space-y-6 px-6 py-6">
+          <Icon
+            name="material-symbols:hand-gesture-outline-rounded"
+            class="size-16"
+          />
+
+          <div class="space-y-4">
+            <h1 class="text-3xl">
+              Sorry, this page is <i>not</i> available.
+            </h1>
+
+            <div class="text-lg space-y-1">
+              <p>
+                This page is either not yet published, or the page does not
+                exist.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <button
+              class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-500"
+              onclick="history.back()"
+            >
+              Go Back
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer
+        class="flex flex-col sm:flex-row justify-between px-8 py-4 text-gray-500 font-mono mt-5 space-y-1 pb-3"
+      >
+        <div></div>
+        <div>Phoomparin Mano, 2024.</div>
+      </footer>
+    </div>
+  </body>
+</html>
