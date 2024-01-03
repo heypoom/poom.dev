@@ -52,6 +52,7 @@
     "micromark-extension-wiki-link": "^0.0.4",
     "minipass": "^7.0.4",
     "mongodb": "^6.3.0",
+    "node-fetch": "^3.3.2",
     "p-queue": "^8.0.1",
     "rehype": "^13.0.1",
     "rehype-autolink-headings": "^6.1.1",

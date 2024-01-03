@@ -40,7 +40,7 @@ export async function uploadImages(notes: Note[]) {
 
       // image with the same name has been uploaded before
       if (objectMeta) {
-        console.log(`[-] "${imageName}" already uploaded`, objectMeta)
+        // console.log(`[-] "${imageName}" already uploaded`, objectMeta)
         return
       }
 

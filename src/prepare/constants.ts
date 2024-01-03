@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-export const { GITHUB_TOKEN, MONGODB_URI } = process.env
+export const { GITHUB_TOKEN, MONGODB_URI, VERCEL_DEPLOY_HOOK_URL } = process.env
 
 /** GitHub username of the repository owner. */
 export const GITHUB_OWNER = 'heypoom'
