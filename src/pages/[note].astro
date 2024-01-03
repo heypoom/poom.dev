@@ -127,11 +127,6 @@ export async function getStaticPaths() {
   const data = await Promise.all(tasks)
   console.log('[~] generation took', performance.now() - genStart, 'ms')
 
-  data.push({
-    params: { note: '404' },
-    props: { note: null, html: null },
-  })
-
   return data
 }
 
