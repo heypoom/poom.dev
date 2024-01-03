@@ -8,11 +8,9 @@ import { Sitegraph } from '../lib/sitegraph'
 export const GET: APIRoute = async () => {
   const graph: Sitegraph = { nodes: {} }
 
-  const notes$ = await db.notes()
-
-  const notes = await notes$
-    .find({}, { projection: { slug: 1, name: 1, timestamp: 1, links: true } })
-    .toArray()
+  // const notes = await notes$
+  //   .find({}, { projection: { slug: 1, name: 1, timestamp: 1, links: true } })
+  //   .toArray()
 
   for (const note of notes) {
     graph.nodes[note.slug ?? note.name] = {

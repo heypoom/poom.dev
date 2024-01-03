@@ -12,42 +12,55 @@ import { Icon } from 'astro-icon/components'
 
 import '../styles/note.css'
 
-import { db } from '../prepare/db'
-
 import BaseHead from '../components/BaseHead.astro'
 
-import { slugify } from '../prepare'
+import { type Note } from '../prepare/types'
+import { slugify } from '../prepare/slug'
+
 import { rehypeFigure } from '../lib/rehype-figure'
 
 export const prerender = false
 let renderTime = 0
 
-const notes$ = await db.notes()
-
 const findStart = performance.now()
 
-const note = await notes$.findOne({
-  slug: { $eq: Astro.params.note! },
-})
+// const note = await notes$.findOne({
+//   slug: { $eq: Astro.params.note! },
+// })
+
+const note: Note = {
+  source: 'foo bar',
+  path: 'foo',
+  name: 'Foo',
+  slug: 'foo-bar',
+  size: 6,
+  timestamp: new Date(),
+  tags: [],
+  links: [],
+  images: [],
+  metadata: {},
+}
 
 console.log(`[~] notes.findOne took ${performance.now() - findStart}ms`)
 
 const slugStart = performance.now()
 
-const publicNotes = await notes$
-  .find(
-    {
-      slug: { $exists: true },
-      $or: [
-        { 'metadata.public': true },
-        { 'metadata.published': { $exists: true } },
-      ],
-    },
-    {
-      projection: { slug: 1, name: 1 },
-    },
-  )
-  .toArray()
+// const publicNotes = await notes$
+//   .find(
+//     {
+//       slug: { $exists: true },
+//       $or: [
+//         { 'metadata.public': true },
+//         { 'metadata.published': { $exists: true } },
+//       ],
+//     },
+//     {
+//       projection: { slug: 1, name: 1 },
+//     },
+//   )
+//   .toArray()
+
+const publicNotes: Note[] = []
 
 console.log('[~] slug took', performance.now() - slugStart, 'ms')
 

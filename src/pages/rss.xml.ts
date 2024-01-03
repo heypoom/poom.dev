@@ -1,17 +1,17 @@
 import rss from '@astrojs/rss'
 
-import { db } from '../prepare/db'
+import type { Note } from '../prepare/types'
 
 export async function GET(context: any) {
-  const notes$ = await db.notes()
+  // const writings = await notes$
+  //   .find(
+  //     { slug: { $exists: true }, 'metadata.publish': { $in: ['poom.blogs'] } },
+  //     { projection: { slug: 1, name: 1, timestamp: 1 } },
+  //   )
+  //   .sort({ timestamp: -1 })
+  //   .toArray()
 
-  const writings = await notes$
-    .find(
-      { slug: { $exists: true }, 'metadata.publish': { $in: ['poom.blogs'] } },
-      { projection: { slug: 1, name: 1, timestamp: 1 } },
-    )
-    .sort({ timestamp: -1 })
-    .toArray()
+  const writings: Note[] = []
 
   return rss({
     title: 'Phoomparin Mano',
