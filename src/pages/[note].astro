@@ -24,7 +24,10 @@ const start = performance.now()
 let renderTime = 0
 
 const notes$ = await db.notes()
-const note = await notes$.findOne({ slug: { $eq: Astro.params.note! } })
+
+const note = await notes$.findOne({
+  slug: { $eq: Astro.params.note! }
+})
 
 const slugs = await notes$
   .find({ slug: { $exists: true } }, { projection: { slug: 1 } })
@@ -170,6 +173,7 @@ renderTime = performance.now() - start
                   [&_figure]:mt-3
                   [&_figcaption]:mt-1
                   [&_figcaption]:text-gray-600
+                  [&_figcaption]:text-sm
                 "
               />
             </section>
