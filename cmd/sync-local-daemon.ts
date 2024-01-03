@@ -1,6 +1,6 @@
 /**
  * Periodically identify changes in the local vault,
- * then push those changes to MongoDB.
+ * then push those changes to PostgreSQL.
  */
 
 import path from 'path'
@@ -9,7 +9,7 @@ import cron from 'node-cron'
 
 import { scanLocalVault } from './local/scanLocalVault'
 
-import { mongo, timed as t, syncNotesToDatabase } from '../src/prepare'
+import { timed as t, syncNotesToDatabase } from '../src/prepare'
 
 const CRONTAB = '* * * * *'
 const VAULT_PATH = path.resolve(homedir(), 'notes')
@@ -26,8 +26,8 @@ async function sync() {
 cron.validate(CRONTAB)
 cron.schedule(CRONTAB, sync)
 
-// TODO: does not work on Windows.
 process.on('SIGINT', function () {
-  mongo.close()
+  // TODO: terminate the PostgreSQL connection.
+
   process.exit()
 })

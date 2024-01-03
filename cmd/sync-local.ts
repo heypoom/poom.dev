@@ -2,7 +2,6 @@ import path from 'path'
 import { homedir } from 'os'
 
 import {
-  mongo,
   timed as t,
   verifyReferences,
   syncNotesToDatabase,
@@ -20,5 +19,3 @@ console.log(`${notes.length} notes found.`)
 await t('verify', () => verifyReferences(notes))
 await t('sync', () => syncNotesToDatabase(notes))
 await t('images', () => uploadImages(notes))
-
-mongo.close()
