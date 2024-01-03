@@ -20,18 +20,27 @@ const exists = async (path: string) => {
   }
 }
 
-export async function uploadImages(notes: Note[]) {
+interface Config {
+  verbose: boolean
+}
+
+export async function uploadImages(notes: Note[], config?: Config) {
+  const { verbose = true } = config ?? {}
+
   const queue = new PQueue({ concurrency: 20 })
 
   const linkedImages = _.uniq(notes.flatMap((note) => note.images))
-  console.log(`found ${linkedImages.length} linked images`)
+
+  if (verbose) {
+    console.log(`found ${linkedImages.length} linked images`)
+  }
 
   // 1 - resolve path to images
   for (const imageName of linkedImages) {
     const imagePath = path.resolve(ASSETS_PATH, imageName)
     const hasImage = await exists(imagePath)
 
-    if (!hasImage) {
+    if (!hasImage && verbose) {
       console.warn(`[!!] image "${imageName}" not found in assets path.`)
     }
 
@@ -44,15 +53,15 @@ export async function uploadImages(notes: Note[]) {
         return
       }
 
-      console.log(`[+] reading "${imageName}"`)
-
       const buffer = await readFile(imagePath)
 
       const image = sharp(buffer)
       const meta = await image.metadata()
       const { format } = meta
 
-      console.log(`[+] compressing "${imageName}"`)
+      if (verbose) {
+        console.log(`[+] compressing "${imageName}"`)
+      }
 
       let out = buffer
 
@@ -62,15 +71,17 @@ export async function uploadImages(notes: Note[]) {
         out = await image.png({ compressionLevel: 9 }).toBuffer()
       }
 
-      console.log(`[+] uploading "${imageName}"`)
-
       await uploadPublicImageFile(imageName, out)
 
-      console.log(`[+] uploaded "${imageName}" to Cloudflare R2`)
+      if (verbose) {
+        console.log(`[+] uploaded "${imageName}" to Cloudflare R2`)
+      }
     })
   }
 
   await queue.onIdle()
 
-  console.log('[+] done uploading all images!')
+  if (verbose) {
+    console.log('[+] done uploading all images!')
+  }
 }
