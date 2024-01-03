@@ -14,7 +14,7 @@ export const matchText = (regex: RegExp, source: string): string[] => {
   return links
 }
 
-const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?)\.md\)/g     
+const linkRegex = /\[\[(?:.+?\|)?(.+?)\]\]|\[.+?\]\((.+?)\.md\)/g
 
 const imageRegex =
   /\!\[\[(.+?)(?:\|\d+)?\]\]|\!\[.+?\]\(((.+?)\.(png|jpg|jpeg|heic|webp))\)/g
@@ -22,6 +22,8 @@ const imageRegex =
 const imageExtRegex = /.*\.(jpg|jpeg|png|webp|heic)$/
 
 export const getLinks = (text: string) =>
-  matchText(linkRegex, text).map((link) => link.replace(/\.md$/, '')).filter(image => !imageExtRegex.test(image))
+  matchText(linkRegex, text)
+    .map((link) => link.replace(/\.md$/, ''))
+    .filter((image) => !imageExtRegex.test(image))
 
 export const getImages = (text: string) => matchText(imageRegex, text)

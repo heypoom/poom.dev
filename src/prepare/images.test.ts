@@ -24,6 +24,6 @@ it('should parse the markdown images correctly', () => {
     'air chief marshal foo foo.jpg',
     './foo foo at the pool.heic',
     'celestial dragons@3x.png',
-    'plushies-2024-01-01.jpeg'
+    'plushies-2024-01-01.jpeg',
   ])
 })

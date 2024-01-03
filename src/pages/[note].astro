@@ -16,6 +16,7 @@ import { db } from '../prepare/db'
 import BaseHead from '../components/BaseHead.astro'
 
 import { slugify } from '../prepare'
+import { rehypeFigure } from '../lib/rehype-figure'
 
 export const prerender = false
 
@@ -71,6 +72,7 @@ if (note) {
       })
     })
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeFigure)
     .use(() => (root) => {
       let id = 0
 
@@ -157,6 +159,13 @@ if (note) {
                   [&_blockquote]:border-l-4
                   [&_blockquote>p]:pl-4
                   [&_hr]:mt-6
+                  [&_figure]:flex
+                  [&_figure]:flex-col
+                  [&_figure]:items-center
+                  [&_figure]:mb-3
+                  [&_figure]:mt-3
+                  [&_figcaption]:mt-1
+                  [&_figcaption]:text-gray-600
                 "
               />
             </section>
