@@ -20,19 +20,38 @@ import { slugify } from '../prepare'
 import { rehypeFigure } from '../lib/rehype-figure'
 
 export const prerender = false
-
-const start = performance.now()
 let renderTime = 0
 
 const notes$ = await db.notes()
 
+const findStart = performance.now()
+
 const note = await notes$.findOne({
-  slug: { $eq: Astro.params.note! }
+  slug: { $eq: Astro.params.note! },
 })
 
+console.log(`[~] notes.findOne took ${performance.now() - findStart}ms`)
+
+const slugStart = performance.now()
+
 const publicNotes = await notes$
-  .find({ slug: { $exists: true }, $or: [{"metadata.public": true}, {"metadata.published": {$exists: true}}] }, { projection: { slug: 1, name: 1 } })
+  .find(
+    {
+      slug: { $exists: true },
+      $or: [
+        { 'metadata.public': true },
+        { 'metadata.published': { $exists: true } },
+      ],
+    },
+    {
+      projection: { slug: 1, name: 1 },
+    },
+  )
   .toArray()
+
+console.log('[~] slug took', performance.now() - slugStart, 'ms')
+
+const parseStart = performance.now()
 
 const slugs = publicNotes.map((note) => note.slug)
 
@@ -57,7 +76,7 @@ if (note) {
           return [name]
         }
 
-        const targetNote = publicNotes.find(n => n.name === name)
+        const targetNote = publicNotes.find((n) => n.name === name)
         if (targetNote) return [targetNote.slug]
 
         return [slugify(name)]
@@ -73,10 +92,10 @@ if (note) {
       },
     })
     .use(() => (root) => {
-      visit(root, 'image', n => {
+      visit(root, 'image', (n) => {
         const node = n as any
 
-        const relativeUrl = node.url.replace(/^\//, "")
+        const relativeUrl = node.url.replace(/^\//, '')
         const absolutePath = `${IMAGE_URL_PREFIX}/`
 
         node.url = new URL(relativeUrl, absolutePath).href
@@ -96,7 +115,7 @@ if (note) {
             className: cx(el.properties.className, 'garden-image'),
 
             // do not lazy load the first image!
-            ...(id > 0 && {loading: 'lazy'}),
+            ...(id > 0 && { loading: 'lazy' }),
           }
 
           id++
@@ -109,7 +128,9 @@ if (note) {
   html = file.toString()
 }
 
-renderTime = performance.now() - start
+console.log('[~] parse took', performance.now() - parseStart, 'ms')
+
+renderTime = performance.now() - findStart
 ---
 
 <!doctype html>
@@ -185,35 +206,48 @@ renderTime = performance.now() - start
           )
         }
 
-        {!note && (
-          <section class="text-blue-600 space-y-6 px-6 py-6">
-            <Icon name="material-symbols:hand-gesture-outline-rounded" class="size-16" />
+        {
+          !note && (
+            <section class="text-blue-600 space-y-6 px-6 py-6">
+              <Icon
+                name="material-symbols:hand-gesture-outline-rounded"
+                class="size-16"
+              />
 
-            <div class="space-y-4">
-              <h1 class="text-3xl">Sorry, this note is <i>not</i> public.</h1>
+              <div class="space-y-4">
+                <h1 class="text-3xl">
+                  Sorry, this note is <i>not</i> public.
+                </h1>
 
-              <div class="text-lg space-y-1">
-                <p>
-                  This note is either not yet published, or the note does not exist.
-                </p>
+                <div class="text-lg space-y-1">
+                  <p>
+                    This note is either not yet published, or the note does not
+                    exist.
+                  </p>
 
-                <p>
-                  Please reach out to Poom if you want to view this note.
-                </p>
+                  <p>Please reach out to Poom if you want to view this note.</p>
+                </div>
               </div>
-            </div>
 
-            <div>
-              <button class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-500" onclick="history.back()">
-                Go Back
-              </button>
-            </div>
-          </section>
-        )}
+              <div>
+                <button
+                  class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-500"
+                  onclick="history.back()"
+                >
+                  Go Back
+                </button>
+              </div>
+            </section>
+          )
+        }
       </main>
 
-      <footer class="flex flex-col sm:flex-row justify-between px-8 py-4 text-gray-500 font-mono mt-5 space-y-1 pb-3">
-        <div class="text-gray-300">took {renderTime.toFixed(2)}ms to render</div>
+      <footer
+        class="flex flex-col sm:flex-row justify-between px-8 py-4 text-gray-500 font-mono mt-5 space-y-1 pb-3"
+      >
+        <div class="text-gray-300">
+          took {renderTime.toFixed(2)}ms to render
+        </div>
         <div>Phoomparin Mano, 2024.</div>
       </footer>
     </div>

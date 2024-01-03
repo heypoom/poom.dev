@@ -10,10 +10,8 @@ const isImageWithAlt = ({ tagName, properties }: any) =>
   tagName === 'img' && Boolean(properties.alt) && Boolean(properties.src)
 
 const isImageWithCaption = ({ tagName, children }: any) =>
-  (
-    tagName === 'figure' &&
-    children.some((child) => child.tagName === 'figcaption')
-  )
+  tagName === 'figure' &&
+  children.some((child) => child.tagName === 'figcaption')
 
 const isImageLink = ({ tagName }: any) => tagName === 'a'
 
@@ -28,35 +26,37 @@ const createFigure = ({ properties }: any, options: any) => {
   ])
 }
 
-export const rehypeFigure = (options = {}) => (tree: any) => {
-  // unwrap the images inside the paragraph
-  visit(tree, { tagName: 'p' }, (node, index, parent) => {
-    if (!hasOnlyImages(node)) return
+export const rehypeFigure =
+  (options = {}) =>
+  (tree: any) => {
+    // unwrap the images inside the paragraph
+    visit(tree, { tagName: 'p' }, (node, index, parent) => {
+      if (!hasOnlyImages(node)) return
 
-    remove(node, 'text')
+      remove(node, 'text')
 
-    parent.children.splice(index, 1, ...node.children)
+      parent.children.splice(index, 1, ...node.children)
 
-    return index
-  })
+      return index
+    })
 
-  // wrap images in figure
-  visit(
-    tree,
-    (node) => isImageWithAlt(node),
-    (node, index, parent) => {
-      if (isImageWithCaption(parent) || isImageLink(parent)) return
+    // wrap images in figure
+    visit(
+      tree,
+      (node) => isImageWithAlt(node),
+      (node, index, parent) => {
+        if (isImageWithCaption(parent) || isImageLink(parent)) return
 
-      const alt = node.properties?.alt
+        const alt = node.properties?.alt
 
-      // do not wrap figures into non alt-texts
-      if (alt && imageRegex.test(alt)) return
+        // do not wrap figures into non alt-texts
+        if (alt && imageRegex.test(alt)) return
 
-      const figure = createFigure(node, options)
+        const figure = createFigure(node, options)
 
-      node.tagName = figure.tagName
-      node.children = figure.children
-      node.properties = figure.properties
-    },
-  ) }
-
+        node.tagName = figure.tagName
+        node.children = figure.children
+        node.properties = figure.properties
+      },
+    )
+  }
