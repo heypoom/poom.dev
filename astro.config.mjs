@@ -28,14 +28,13 @@ export default defineConfig({
       // Polyfills NodeJS APIs, when possible.
       // NOTE: Can be removed, especially if you're running into
       // weird complication errors from some of your dependencies.
-      nodePolyfills({
-        crypto: true,
-      }),
-
+      // nodePolyfills({
+      //   crypto: true,
+      // }),
       // Polyfills NodeJS global variables (e.g. process).
       // NOTE: Can be removed, especially if you're running into
       // weird complication errors from some of your dependencies.
-      nodeGlobals(),
+      // nodeGlobals(),
     ],
   },
 })
