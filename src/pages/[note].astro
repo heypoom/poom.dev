@@ -34,7 +34,7 @@ export async function getStaticPaths() {
       slug: { $exists: true },
       $or: [
         { 'metadata.public': true },
-        { 'metadata.published': { $exists: true } },
+        { 'metadata.publish': { $exists: true } },
       ],
     })
     .toArray()
