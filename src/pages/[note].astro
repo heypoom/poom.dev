@@ -20,6 +20,9 @@ import { rehypeFigure } from '../lib/rehype-figure'
 
 export const prerender = false
 
+const start = performance.now()
+let renderTime = 0
+
 const notes$ = await db.notes()
 const note = await notes$.findOne({ slug: { $eq: Astro.params.note! } })
 
@@ -97,6 +100,8 @@ if (note) {
 
   html = file.toString()
 }
+
+renderTime = performance.now() - start
 ---
 
 <!doctype html>
@@ -171,13 +176,12 @@ if (note) {
             </section>
           )
         }
-
-        {
-          !note && (
-            <h1 class="text-3xl">The page you were looking for is gone!</h1>
-          )
-        }
       </main>
+
+      <footer class="flex justify-between px-8 py-4 text-gray-500 font-mono mt-5">
+        <div class="text-gray-300">took {renderTime.toFixed(2)}ms to render</div>
+        <div>Phoomparin Mano, 2024.</div>
+      </footer>
     </div>
   </body>
 </html>
