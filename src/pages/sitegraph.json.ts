@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro'
 
-import { db } from '../prepare/db'
-import { slugify } from '../prepare'
+import { slugify } from '../prepare/slug'
+import { type Note } from '../prepare/types'
 
 import { Sitegraph } from '../lib/sitegraph'
 
@@ -11,6 +11,8 @@ export const GET: APIRoute = async () => {
   // const notes = await notes$
   //   .find({}, { projection: { slug: 1, name: 1, timestamp: 1, links: true } })
   //   .toArray()
+
+  const notes: Note[] = []
 
   for (const note of notes) {
     graph.nodes[note.slug ?? note.name] = {
