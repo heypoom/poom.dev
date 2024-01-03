@@ -19,52 +19,32 @@ import BaseHead from '../components/BaseHead.astro'
 import { slugify } from '../prepare'
 import { rehypeFigure } from '../lib/rehype-figure'
 
-export const prerender = false
-let renderTime = 0
+export const prerender = true
 
-const notes$ = await db.notes()
+export async function getStaticPaths() {
+  const IMAGE_REGEX = /.*\.(jpg|jpeg|png|webp|heic)$/
+  const IMAGE_URL_PREFIX = 'https://images.poom.dev'
 
-const findStart = performance.now()
+  const notes$ = await db.notes()
 
-const note = await notes$.findOne({
-  slug: { $eq: Astro.params.note! },
-})
+  const buildStart = performance.now()
 
-console.log(`[~] notes.findOne took ${performance.now() - findStart}ms`)
-
-const slugStart = performance.now()
-
-const publicNotes = await notes$
-  .find(
-    {
+  const notes = await notes$
+    .find({
       slug: { $exists: true },
       $or: [
         { 'metadata.public': true },
         { 'metadata.published': { $exists: true } },
       ],
-    },
-    {
-      projection: { slug: 1, name: 1 },
-    },
-  )
-  .toArray()
+    })
+    .toArray()
 
-console.log('[~] slug took', performance.now() - slugStart, 'ms')
+  console.log('[~] querying notes took', performance.now() - buildStart, 'ms')
+  const genStart = performance.now()
 
-const parseStart = performance.now()
+  const slugs = notes.map((note) => note.slug)
 
-const slugs = publicNotes.map((note) => note.slug)
-
-const imageRegex = /.*\.(jpg|jpeg|png|webp|heic)$/
-
-let html = ''
-
-const IMAGE_URL_PREFIX = 'https://images.poom.dev'
-
-if (note) {
-  const { content } = matter(note.source)
-
-  const file = await unified()
+  const processor = unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkWikiLink, {
@@ -72,11 +52,11 @@ if (note) {
       permalinks: slugs ?? [],
       pathFormat: 'obsidian-short',
       wikiLinkResolver: (name) => {
-        if (imageRegex.test(name)) {
+        if (IMAGE_REGEX.test(name)) {
           return [name]
         }
 
-        const targetNote = publicNotes.find((n) => n.name === name)
+        const targetNote = notes.find((n) => n.name === name)
         if (targetNote) return [targetNote.slug]
 
         return [slugify(name)]
@@ -84,7 +64,7 @@ if (note) {
       newClassName: 'new',
       wikiLinkClassName: 'internal',
       hrefTemplate: (name) => {
-        if (imageRegex.test(name)) {
+        if (IMAGE_REGEX.test(name)) {
           return `${IMAGE_URL_PREFIX}/${name}`
         }
 
@@ -123,14 +103,34 @@ if (note) {
       })
     })
     .use(rehypeStringify, { allowDangerousHtml: true })
-    .process(content)
 
-  html = file.toString()
+  const tasks = notes.map(async (note) => {
+    try {
+      const { content } = matter(note.source)
+
+      const out = await processor.process(content)
+
+      return {
+        params: { note: note.slug },
+        props: { note, html: out.toString() },
+      }
+    } catch (error) {
+      console.error('[!] error', note.slug, error)
+
+      return {
+        params: { note: note.slug },
+        props: { note: null, html: null },
+      }
+    }
+  })
+
+  const data = await Promise.all(tasks)
+  console.log('[~] generation took', performance.now() - genStart, 'ms')
+
+  return data
 }
 
-console.log('[~] parse took', performance.now() - parseStart, 'ms')
-
-renderTime = performance.now() - findStart
+const { note, html } = Astro.props
 ---
 
 <!doctype html>
@@ -245,9 +245,7 @@ renderTime = performance.now() - findStart
       <footer
         class="flex flex-col sm:flex-row justify-between px-8 py-4 text-gray-500 font-mono mt-5 space-y-1 pb-3"
       >
-        <div class="text-gray-300">
-          took {renderTime.toFixed(2)}ms to render
-        </div>
+        <div></div>
         <div>Phoomparin Mano, 2024.</div>
       </footer>
     </div>

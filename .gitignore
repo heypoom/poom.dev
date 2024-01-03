@@ -26,3 +26,5 @@ data/
 tarball.tar
 snapshot.json
 snapshot.*.json
+
+.vercel
