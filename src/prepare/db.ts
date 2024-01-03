@@ -12,8 +12,6 @@ class MongoManager {
 
     if (!MONGODB_URI) throw new Error('MONGODB_URI is not defined!')
 
-    const start = performance.now()
-
     const client = new MongoClient(MONGODB_URI, {
       serverApi: {
         version: ServerApiVersion.v1,
@@ -24,8 +22,6 @@ class MongoManager {
 
     try {
       MongoManager._client = await client.connect()
-
-      console.log(`[~] mongo connected in ${performance.now() - start}ms`)
 
       return MongoManager._client
     } catch (err) {
