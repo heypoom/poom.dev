@@ -24,6 +24,7 @@
     "@astrojs/partytown": "^2.0.3",
     "@astrojs/rss": "^4.0.1",
     "@astrojs/sitemap": "^3.0.4",
+    "@astrojs/svelte": "^5.0.3",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^6.1.1",
     "@aws-sdk/client-s3": "^3.484.0",
