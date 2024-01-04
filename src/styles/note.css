@@ -1,3 +1,84 @@
 p:has(> .garden-image) {
   align-self: center;
 }
+
+.tag {
+  @apply mr-1 rounded-lg px-2 border border-gray-100 text-gray-500 no-underline;
+
+  &:hover {
+    @apply bg-green-50 text-green-600 border-green-100;
+  }
+
+  &:focus {
+    @apply outline-none bg-yellow-50 text-yellow-500 border-yellow-200;
+
+    &:hover {
+      @apply bg-yellow-100 text-yellow-600;
+    }
+  }
+}
+
+.article {
+  @apply leading-7 text-gray-800 flex flex-col gap-y-3 text-lg;
+
+  h1 {
+    @apply text-2xl font-semibold mt-6;
+  }
+
+  h2 {
+    @apply text-xl font-semibold mt-6;
+  }
+
+  pre {
+    @apply whitespace-pre-wrap text-sm p-6 text-gray-600 leading-relaxed border rounded border-gray-200 mt-2;
+  }
+
+  a:not(.tag) {
+    @apply text-gray-600 underline;
+
+    &:hover {
+      @apply text-purple-500;
+    }
+
+    &:focus {
+      @apply outline-none bg-yellow-100 text-yellow-900 rounded;
+    }
+  }
+
+  img {
+    @apply rounded my-2 object-contain;
+    max-height: 700px;
+  }
+
+  blockquote {
+    @apply font-mono text-gray-400 py-1 border border-transparent border-l-gray-200 border-l-4;
+
+    p {
+      @apply pl-4;
+    }
+  }
+
+  hr {
+    @apply mt-6;
+  }
+
+  figure {
+    @apply flex flex-col items-center mb-3 mt-3;
+
+    figcaption {
+      @apply mt-1 text-gray-600 text-sm;
+    }
+  }
+
+  ul {
+    @apply list-disc list-inside p-0 m-0;
+
+    li {
+      @apply mb-1;
+    }
+
+    li::marker {
+      @apply p-0 m-0;
+    }
+  }
+}

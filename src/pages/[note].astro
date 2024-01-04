@@ -6,6 +6,7 @@ import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
 import matter from 'gray-matter'
 import { visit } from 'unist-util-visit'
+import type { Parent } from 'unist'
 import { remarkWikiLink } from '@portaljs/remark-wiki-link'
 import cx from 'classnames'
 import { Icon } from 'astro-icon/components'
@@ -46,6 +47,7 @@ export async function getStaticPaths() {
 
   const processor = unified()
     .use(remarkParse)
+    // @ts-expect-error - incompatble versions.
     .use(remarkGfm)
     .use(remarkWikiLink, {
       aliasDivider: '|',
@@ -103,6 +105,49 @@ export async function getStaticPaths() {
       })
     })
     .use(rehypeStringify, { allowDangerousHtml: true })
+    .use(() => (root) => {
+      // Replace #tags with links.
+      visit(root, 'text', (n, index, p) => {
+        const node = n as { value: string }
+        const parent = p as Parent & { tagName: string }
+
+        if (parent && parent.type === 'element' && parent.tagName === 'p') {
+          const words = node.value.split(' ')
+          let buffer = ''
+
+          if (node.value.startsWith(' ')) buffer += ' '
+
+          const newChildren = []
+
+          for (const word of words) {
+            if (word.startsWith('#')) {
+              if (buffer) {
+                newChildren.push({ type: 'text', value: buffer })
+                buffer = ''
+              }
+
+              newChildren.push({
+                type: 'element',
+                tagName: 'a',
+                properties: {
+                  href: '#',
+                  class: 'tag',
+                },
+                children: [{ type: 'text', value: word }],
+              })
+            } else {
+              buffer += (buffer ? ' ' : '') + word
+            }
+          }
+
+          if (buffer) {
+            newChildren.push({ type: 'text', value: buffer })
+          }
+
+          parent.children.splice(index, 1, ...newChildren)
+        }
+      })
+    })
 
   const tasks = notes.map(async (note) => {
     try {
@@ -151,57 +196,7 @@ const { note, html } = Astro.props
                 {note.name}
               </h1>
 
-              <article
-                set:html={html}
-                class="
-                  leading-7
-                  text-gray-800 flex flex-col gap-y-3
-                  text-lg
-                  [&_h1]:text-2xl
-                  [&_h1]:font-semibold
-                  [&_h1]:mt-6
-                  [&_h2]:text-xl
-                  [&_h2]:font-semibold
-                  [&_h2]:mt-6
-                  [&_pre]:whitespace-pre-wrap
-                  [&_pre]:text-sm
-                  [&_pre]:p-6
-                  [&_pre]:text-gray-600
-                  [&_pre]:leading-relaxed
-                  [&_pre]:border
-                  [&_pre]:rounded
-                  [&_pre]:border-gray-200
-                  [&_pre]:mt-2
-                  [&_a]:text-gray-600
-                  [&_a:hover]:text-purple-500
-                  [&_a:focus]:outline-none
-                  [&_a:focus]:bg-yellow-100
-                  [&_a:focus]:text-yellow-900
-                  [&_a:focus]:rounded
-                  [&_a]:underline
-                  [&_img]:rounded
-                  [&_img]:my-2
-                  [&_img]:object-contain
-                  [&_img]:max-h-[700px]
-                  [&_blockquote]:font-mono
-                  [&_blockquote]:text-gray-400
-                  [&_blockquote]:py-1
-                  [&_blockquote]:border
-                  [&_blockquote]:border-transparent
-                  [&_blockquote]:border-l-gray-200
-                  [&_blockquote]:border-l-4
-                  [&_blockquote>p]:pl-4
-                  [&_hr]:mt-6
-                  [&_figure]:flex
-                  [&_figure]:flex-col
-                  [&_figure]:items-center
-                  [&_figure]:mb-3
-                  [&_figure]:mt-3
-                  [&_figcaption]:mt-1
-                  [&_figcaption]:text-gray-600
-                  [&_figcaption]:text-sm
-                "
-              />
+              <article set:html={html} class="article" />
             </section>
           )
         }
