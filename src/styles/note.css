@@ -62,7 +62,7 @@ p:has(> .garden-image) {
     @apply mt-6;
   }
 
-  figure {
+  figure:not([data-rehype-pretty-code-figure]) {
     @apply flex flex-col items-center mb-3 mt-3;
 
     figcaption {
@@ -82,3 +82,20 @@ p:has(> .garden-image) {
     }
   }
 }
+
+body.light {
+  code[data-theme*=' '],
+  code[data-theme*=' '] span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+}
+ 
+body.dark {
+  code[data-theme*=' '],
+  code[data-theme*=' '] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+}
+

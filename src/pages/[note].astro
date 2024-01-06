@@ -4,6 +4,7 @@ import remarkParse from 'remark-parse'
 import remarkGfm from 'remark-gfm'
 import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
+import remarkPrettyCode from 'rehype-pretty-code'
 import matter from 'gray-matter'
 import { visit } from 'unist-util-visit'
 import type { Parent } from 'unist'
@@ -84,6 +85,17 @@ export async function getStaticPaths() {
       })
     })
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(remarkPrettyCode, {
+      theme: {
+        light: 'catppuccin-latte',
+        dark: 'catppuccin-mocha'
+      },
+      keepBackground: false,
+      defaultLang: {
+        block: 'plaintext',
+        inline: 'plaintext',
+      },
+    })
     .use(rehypeFigure)
     .use(() => (root) => {
       let id = 0
@@ -184,7 +196,7 @@ const { note, html } = Astro.props
     <BaseHead title={`${note?.name ?? 'Memo'}`} description="" image={null} />
   </head>
 
-  <body>
+  <body class="light">
     <div class="text-white">
       <main
         class="flex flex-col justify-center mx-auto max-w-3xl min-h-screen px-8 break-words"
