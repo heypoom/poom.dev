@@ -6,6 +6,7 @@ import Webring from '../components/Webring.astro'
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 import { db } from '../prepare/db'
+import Header from '../components/Header.astro'
 
 export const prerender = true
 
@@ -27,6 +28,8 @@ const writings = await notes$
   </head>
 
   <body>
+    <Header />
+
     <div class="flex items-center justify-center px-6 py-2 min-h-screen">
       <main>
         <section class="space-y-2">

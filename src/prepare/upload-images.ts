@@ -54,22 +54,23 @@ export async function uploadImages(notes: Note[], config?: Config) {
       }
 
       const buffer = await readFile(imagePath)
-
-      const image = sharp(buffer)
-      const meta = await image.metadata()
-      const { format } = meta
-
-      if (verbose) {
-        console.log(`[+] compressing "${imageName}"`)
-      }
-
       let out = buffer
 
-      if (format === 'jpg' || format === 'jpeg') {
-        out = await image.jpeg({ quality: 80, mozjpeg: true }).toBuffer()
-      } else if (format === 'png') {
-        out = await image.png({ compressionLevel: 9 }).toBuffer()
-      }
+      // const image = sharp(buffer)
+      // const meta = await image.metadata()
+      // const { format } = meta
+
+      // if (verbose) {
+      //   console.log(`[+] compressing "${imageName}"`)
+      // }
+
+      // let out = buffer
+
+      // if (format === 'jpg' || format === 'jpeg') {
+      //   out = await image.jpeg({ quality: 80, mozjpeg: true }).toBuffer()
+      // } else if (format === 'png') {
+      //   out = await image.png({ compressionLevel: 9 }).toBuffer()
+      // }
 
       await uploadPublicImageFile(imageName, out)
 
