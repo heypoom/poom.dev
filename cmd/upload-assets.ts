@@ -4,7 +4,7 @@ import { uploadImages } from '../src/prepare/upload-images'
 
 await uploadImages([
   {
-    images: ['history-v2-fast.mp4'],
+    images: ['history-v4-fast.mp4'],
     source: '',
     path: '',
     name: '',

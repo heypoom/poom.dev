@@ -33,6 +33,7 @@ export function uploadPublicImageFile(
     Bucket: PUBLIC_IMAGE_BUCKET_KEY,
     Key: key,
     Body: body,
+    ContentType: 'video/mp4',
   })
 
   return r2.send(command)
