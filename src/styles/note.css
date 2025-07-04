@@ -26,7 +26,7 @@ p:has(> .garden-image) {
   }
 
   h2 {
-    @apply text-xl font-semibold mt-6;
+    @apply text-xl font-semibold mt-1 mb-1;
   }
 
   pre {
@@ -50,6 +50,15 @@ p:has(> .garden-image) {
     max-height: 700px;
   }
 
+  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  li::marker {
+    @apply text-gray-700;
+  }
+
   blockquote {
     @apply font-mono text-gray-400 py-1 border border-transparent border-l-gray-200 border-l-4;
 
@@ -71,15 +80,7 @@ p:has(> .garden-image) {
   }
 
   ul {
-    @apply list-disc list-inside p-0 m-0;
-
-    li {
-      @apply mb-1;
-    }
-
-    li::marker {
-      @apply p-0 m-0;
-    }
+    margin-top: 0;
   }
 }
 
