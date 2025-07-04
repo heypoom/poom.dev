@@ -43,6 +43,14 @@ p:has(> .garden-image) {
     &:focus {
       @apply outline-none bg-yellow-100 text-yellow-900 rounded;
     }
+
+    &.new {
+      @apply text-gray-500 no-underline pointer-events-none;
+
+      &:hover {
+        @apply text-gray-500;
+      }
+    }
   }
 
   img {
