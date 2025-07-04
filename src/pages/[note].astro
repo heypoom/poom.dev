@@ -210,6 +210,19 @@ const { note, html } = Astro.props
               </h1>
 
               <article set:html={html} class="article prose" />
+              
+              <div class="mt-8 pt-6 border-t border-gray-200">
+                <a
+                  href="/"
+                  class="inline-flex items-center gap-x-2 text-slate-600 hover:text-cyan-800 hover:underline"
+                >
+                  <Icon
+                    name="material-symbols:arrow-back"
+                    class="size-4"
+                  />
+                  Back to Home
+                </a>
+              </div>
             </section>
           )
         }
@@ -254,7 +267,7 @@ const { note, html } = Astro.props
         class="flex flex-col sm:flex-row justify-between px-8 py-4 text-gray-500 font-mono mt-5 space-y-1 pb-3"
       >
         <div></div>
-        <div>Phoomparin Mano, 2024.</div>
+        <div>Phoomparin Mano, {new Date().getFullYear()}.</div>
       </footer>
     </div>
   </body>
