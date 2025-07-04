@@ -1,0 +1,128 @@
+---
+import BaseHead from '../components/BaseHead.astro'
+import type { Sitegraph } from '../lib/sitegraph'
+
+export const prerender = true
+
+// Fetch sitegraph data at build time
+const response = await fetch('https://poom.dev/sitegraph.json')
+const sitegraph: Sitegraph = await response.json()
+
+// Calculate backlinks (incoming links) for each node
+const backlinks: Record<string, Array<{ from: string, title: string, displayText: string }>> = {}
+
+Object.entries(sitegraph.nodes).forEach(([nodeKey, node]) => {
+  node.links.forEach(link => {
+    if (!backlinks[link.link]) {
+      backlinks[link.link] = []
+    }
+
+    backlinks[link.link]?.push({
+      from: nodeKey,
+      title: node.title || nodeKey,
+      displayText: link.displayText || node.title || nodeKey
+    })
+  })
+})
+
+// Get all nodes with their metadata
+const nodes = Object.entries(sitegraph.nodes).map(([key, node]) => ({
+  key,
+  title: node.title || key,
+  outgoingLinks: node.links,
+  incomingLinks: backlinks[key] || [],
+  totalLinks: node.links.length + (backlinks[key]?.length || 0)
+})).sort((a, b) => a.title.localeCompare(b.title))
+
+const totalNodes = nodes.length
+const totalLinks = Object.values(sitegraph.nodes).reduce((sum, node) => sum + node.links.length, 0)
+const averageLinks = totalLinks / totalNodes
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Site Graph" description="Visualization of note connections and links" />
+  </head>
+
+  <body>
+    <div class="px-6 py-8 max-w-4xl mx-auto">
+      <header class="mb-8">
+        <h1 class="text-2xl font-bold text-slate-800 mb-2">Site Graph</h1>
+        <p class="text-sm text-slate-600">
+          {totalNodes} nodes • {totalLinks} links • {averageLinks.toFixed(1)} avg per node
+        </p>
+      </header>
+
+      <div>
+        {nodes.map((node) => (
+          <div>
+            <div class="flex items-center justify-between py-2 px-3 hover:bg-slate-50 rounded">
+              <div class="flex-1 min-w-0">
+                <a 
+                  href={`/${node.key}`}
+                  class="text-slate-800 hover:text-cyan-700 font-medium truncate block"
+                >
+                  {node.title}
+                </a>
+
+                <div class="text-xs text-slate-500 mt-0.5">
+                  {node.outgoingLinks.length > 0 && `→ ${node.outgoingLinks.length}`}
+                  {node.outgoingLinks.length > 0 && node.incomingLinks.length > 0 && ' • '}
+                  {node.incomingLinks.length > 0 && `← ${node.incomingLinks.length}`}
+                  {node.outgoingLinks.length === 0 && node.incomingLinks.length === 0 && 'no links'}
+                </div>
+              </div>
+            </div>
+
+            <div class="node-details hidden ml-6 pb-2" id={`details-${node.key}`}>
+              {node.outgoingLinks.length > 0 && (
+                <div>
+                  <div class="text-xs font-medium">
+                    Outgoing ({node.outgoingLinks.length}):
+                  </div>
+
+                  <div class="space-y-0.5">
+                    {node.outgoingLinks.map((link) => (
+                      <a 
+                        href={`/${link.link}`}
+                        class="block text-xs text-slate-600 hover:text-cyan-700 pl-2"
+                      >
+                        → {link.displayText}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {node.incomingLinks.length > 0 && (
+                <div>
+                  <div class="text-xs font-medium text-[#]">
+                    Incoming ({node.incomingLinks.length}):
+                  </div>
+
+                  <div class="space-y-0.5">
+                    {node.incomingLinks.map((link) => (
+                      <a 
+                        href={`/${link.from}`}
+                        class="block text-xs text-slate-600 hover:text-cyan-700 pl-2"
+                      >
+                        ← {link.title}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <footer class="mt-8 pt-4 border-t border-slate-200 text-center text-sm text-slate-500">
+        <a href="/tags" class="hover:text-cyan-700">Tags</a>
+        <span class="mx-2">•</span>
+        <a href="/" class="hover:text-cyan-700">Home</a>
+      </footer>
+    </div>
+  </body>
+</html>
