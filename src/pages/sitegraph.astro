@@ -4,6 +4,9 @@ import type { Sitegraph } from '../lib/sitegraph'
 
 export const prerender = true
 
+// Constants
+const MAX_LINKS_TO_SHOW = 6
+
 // Fetch sitegraph data at build time
 const response = await fetch('https://poom.dev/sitegraph.json')
 const sitegraph: Sitegraph = await response.json()
@@ -54,62 +57,70 @@ const averageLinks = totalLinks / totalNodes
         </p>
       </header>
 
-      <div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {nodes.map((node) => (
-          <div>
-            <div class="flex items-center justify-between py-2 px-3 hover:bg-slate-50 rounded">
-              <div class="flex-1 min-w-0">
-                <a 
-                  href={`/${node.key}`}
-                  class="text-slate-800 hover:text-cyan-700 font-medium truncate block"
-                >
-                  {node.title}
-                </a>
+          <div class="border border-slate-200 rounded-lg p-3 hover:shadow-md transition-shadow">
+            <div class="mb-2">
+              <a 
+                href={`/${node.key}`}
+                class="text-slate-800 hover:text-cyan-700 font-medium block leading-tight"
+              >
+                {node.title}
+              </a>
 
-                <div class="text-xs text-slate-500 mt-0.5">
-                  {node.outgoingLinks.length > 0 && `→ ${node.outgoingLinks.length}`}
-                  {node.outgoingLinks.length > 0 && node.incomingLinks.length > 0 && ' • '}
-                  {node.incomingLinks.length > 0 && `← ${node.incomingLinks.length}`}
-                  {node.outgoingLinks.length === 0 && node.incomingLinks.length === 0 && 'no links'}
-                </div>
+              <div class="text-xs text-slate-500 mt-1">
+                {node.outgoingLinks.length > 0 && `→ ${node.outgoingLinks.length}`}
+                {node.outgoingLinks.length > 0 && node.incomingLinks.length > 0 && ' • '}
+                {node.incomingLinks.length > 0 && `← ${node.incomingLinks.length}`}
+                {node.outgoingLinks.length === 0 && node.incomingLinks.length === 0 && 'no links'}
               </div>
             </div>
 
-            <div class="node-details hidden ml-6 pb-2" id={`details-${node.key}`}>
+            <div class="space-y-2">
               {node.outgoingLinks.length > 0 && (
                 <div>
-                  <div class="text-xs font-medium">
+                  <div class="text-xs font-medium text-slate-700 mb-1">
                     Outgoing ({node.outgoingLinks.length}):
                   </div>
 
                   <div class="space-y-0.5">
-                    {node.outgoingLinks.map((link) => (
+                    {node.outgoingLinks.slice(0, MAX_LINKS_TO_SHOW).map((link) => (
                       <a 
                         href={`/${link.link}`}
-                        class="block text-xs text-slate-600 hover:text-cyan-700 pl-2"
+                        class="block text-xs text-slate-600 hover:text-cyan-700 pl-2 truncate"
                       >
                         → {link.displayText}
                       </a>
                     ))}
+                    {node.outgoingLinks.length > MAX_LINKS_TO_SHOW && (
+                      <div class="text-xs text-slate-500 pl-2">
+                        ... and {node.outgoingLinks.length - MAX_LINKS_TO_SHOW} more
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
 
               {node.incomingLinks.length > 0 && (
                 <div>
-                  <div class="text-xs font-medium text-[#]">
+                  <div class="text-xs font-medium text-slate-700 mb-1">
                     Incoming ({node.incomingLinks.length}):
                   </div>
 
                   <div class="space-y-0.5">
-                    {node.incomingLinks.map((link) => (
+                    {node.incomingLinks.slice(0, MAX_LINKS_TO_SHOW).map((link) => (
                       <a 
                         href={`/${link.from}`}
-                        class="block text-xs text-slate-600 hover:text-cyan-700 pl-2"
+                        class="block text-xs text-slate-600 hover:text-cyan-700 pl-2 truncate"
                       >
                         ← {link.title}
                       </a>
                     ))}
+                    {node.incomingLinks.length > MAX_LINKS_TO_SHOW && (
+                      <div class="text-xs text-slate-500 pl-2">
+                        ... and {node.incomingLinks.length - MAX_LINKS_TO_SHOW} more
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
