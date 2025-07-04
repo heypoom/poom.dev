@@ -16,7 +16,9 @@ export async function extractMetadata(
 
     const isPublic = meta.public === true
     const isPublish = Array.isArray(meta.publish) && meta.publish.length > 0
-    if (!isPublic && !isPublish) return null
+    const isTemplate = typeof meta.title === 'string' && meta.title.startsWith('Template -')
+    
+    if ((!isPublic && !isPublish) || isTemplate) return null
 
     return {
       links: getLinks(source),

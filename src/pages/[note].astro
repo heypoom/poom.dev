@@ -60,9 +60,9 @@ export async function getStaticPaths() {
         }
 
         const targetNote = notes.find((n) => n.name === name)
-        if (targetNote) return [targetNote.slug]
-
-        return [slugify(name)]
+        const resolvedSlug = targetNote ? targetNote.slug : slugify(name)
+        
+        return [resolvedSlug]
       },
       newClassName: 'new',
       wikiLinkClassName: 'internal',
