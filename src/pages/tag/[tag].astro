@@ -1,0 +1,141 @@
+---
+import { Icon } from 'astro-icon/components'
+
+import BaseHead from '../../components/BaseHead.astro'
+import { db } from '../../prepare/db'
+
+export const prerender = true
+
+export async function getStaticPaths() {
+  const notes$ = await db.notes()
+
+  const notes = await notes$
+    .find({
+      slug: { $exists: true },
+      $or: [
+        { 'metadata.public': true },
+        { 'metadata.publish': { $exists: true } },
+      ],
+    })
+    .toArray()
+
+  // Get all unique tags
+  const allTags = new Set<string>()
+  notes.forEach((note) => {
+    note.tags.forEach((tag) => allTags.add(tag))
+  })
+
+  // Generate static paths for each tag
+  return Array.from(allTags).map((tag) => ({
+    params: { tag: encodeURIComponent(tag) },
+    props: { tag, notes },
+  }))
+}
+
+const { tag, notes } = Astro.props
+
+// Filter notes that contain this specific tag
+const taggedNotes = notes.filter((note) => note.tags.includes(tag))
+
+// Sort by timestamp (newest first)
+const sortedNotes = taggedNotes.sort((a, b) => 
+  new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`Tag: #${tag}`} description={`Notes tagged with #${tag}`} />
+  </head>
+
+  <body>
+    <div class="flex items-center justify-center px-6 py-2 min-h-screen">
+      <main class="max-w-4xl w-full">
+        <section class="space-y-6">
+          <div class="text-center space-y-2">
+            <h1 class="text-3xl font-bold text-slate-800">
+              <Icon
+                name="material-symbols:tag"
+                class="inline size-8 text-slate-600 mr-2"
+              />
+              #{tag}
+            </h1>
+            <p class="text-slate-600">
+              {sortedNotes.length} {sortedNotes.length === 1 ? 'note' : 'notes'} with this tag
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            {
+              sortedNotes.map((note) => (
+                <a
+                  class="flex gap-x-3 justify-between items-center p-4 border border-slate-200 rounded-lg text-slate-800 hover:text-cyan-800 hover:border-cyan-200 hover:bg-cyan-50 group cursor-pointer transition-all"
+                  href={`/${note.slug}`}
+                >
+                  <div class="flex items-center gap-x-3 flex-1">
+                    <Icon
+                      name="material-symbols:note"
+                      class="flex-[0_0_20px] size-5 text-slate-500 group-hover:text-cyan-600"
+                    />
+                    <div class="flex-1">
+                      <h3 class="font-medium group-hover:underline group-hover:underline-offset-2">
+                        {note.name}
+                      </h3>
+                      {note.tags.length > 1 && (
+                        <div class="flex flex-wrap gap-1 mt-1">
+                          {note.tags
+                            .filter((t) => t !== tag)
+                            .slice(0, 3)
+                            .map((otherTag) => (
+                              <span class="text-xs text-slate-500 bg-slate-100 px-2 py-0.5 rounded group-hover:bg-cyan-100 group-hover:text-cyan-700">
+                                #{otherTag}
+                              </span>
+                            ))}
+                          {note.tags.filter((t) => t !== tag).length > 3 && (
+                            <span class="text-xs text-slate-500">
+                              +{note.tags.filter((t) => t !== tag).length - 3} more
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div class="text-sm text-slate-500">
+                    {new Date(note.timestamp).toLocaleDateString()}
+                  </div>
+                </a>
+              ))
+            }
+          </div>
+
+          {sortedNotes.length === 0 && (
+            <div class="text-center text-slate-500 py-12">
+              <Icon
+                name="material-symbols:search-off"
+                class="size-16 mx-auto mb-4 text-slate-300"
+              />
+              <p>No notes found with this tag.</p>
+            </div>
+          )}
+
+          <div class="flex justify-center gap-4 pt-6 text-slate-600">
+            <a
+              href="/tags"
+              class="hover:text-cyan-800 hover:underline"
+            >
+              ← All tags
+            </a>
+            <span class="text-slate-300">|</span>
+            <a
+              href="/"
+              class="hover:text-cyan-800 hover:underline"
+            >
+              Home
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

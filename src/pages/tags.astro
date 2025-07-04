@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components'
+
+import BaseHead from '../components/BaseHead.astro'
+import { db } from '../prepare/db'
+
+export const prerender = true
+
+const notes$ = await db.notes()
+
+const notes = await notes$
+  .find({
+    slug: { $exists: true },
+    $or: [
+      { 'metadata.public': true },
+      { 'metadata.publish': { $exists: true } },
+    ],
+  })
+  .toArray()
+
+// Aggregate all tags with their counts
+const tagCounts = new Map<string, number>()
+
+notes.forEach((note) => {
+  note.tags.forEach((tag) => {
+    tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
+  })
+})
+
+// Sort tags by count (descending) then alphabetically
+const sortedTags = Array.from(tagCounts.entries()).sort((a, b) => {
+  if (a[1] !== b[1]) return b[1] - a[1] // Count descending
+  return a[0].localeCompare(b[0]) // Alphabetical
+})
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Tags" description="All tags used in notes" />
+  </head>
+
+  <body>
+    <div class="flex items-center justify-center px-6 py-16 min-h-screen">
+      <main class="max-w-4xl w-full">
+        <section class="space-y-6">
+          <div class="text-center space-y-2">
+            <h1 class="text-3xl font-bold text-slate-800">Tags</h1>
+            <p class="text-slate-600">
+              {sortedTags.length} tags across {notes.length} notes
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {
+              sortedTags.map(([tag, count]) => (
+                <a
+                  class="flex gap-x-3 justify-between items-center p-3 border border-slate-200 rounded-lg text-slate-800 hover:text-cyan-800 hover:border-cyan-200 hover:bg-cyan-50 group cursor-pointer transition-all"
+                  href={`/tag/${encodeURIComponent(tag)}`}
+                >
+                  <div class="flex items-center gap-x-2">
+                    <Icon
+                      name="material-symbols:tag"
+                      class="flex-[0_0_16px] size-4 text-slate-500 group-hover:text-cyan-600"
+                    />
+                    <span class="font-medium">#{tag}</span>
+                  </div>
+                  <span class="text-sm text-slate-500 bg-slate-100 px-2 py-1 rounded-full group-hover:bg-cyan-100 group-hover:text-cyan-700">
+                    {count}
+                  </span>
+                </a>
+              ))
+            }
+          </div>
+
+          <div class="text-center pt-6">
+            <a
+              href="/"
+              class="text-slate-600 hover:text-cyan-800 hover:underline"
+            >
+              ← Back to home
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

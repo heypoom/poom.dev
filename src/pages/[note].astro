@@ -138,11 +138,12 @@ export async function getStaticPaths() {
                 buffer = ''
               }
 
+              const tagName = word.replace('#', '')
               newChildren.push({
                 type: 'element',
                 tagName: 'a',
                 properties: {
-                  href: '#',
+                  href: `/tag/${encodeURIComponent(tagName)}`,
                   class: 'tag',
                 },
                 children: [{ type: 'text', value: word }],
