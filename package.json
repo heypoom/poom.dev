@@ -23,7 +23,7 @@
     "@astrojs/node": "^7.0.3",
     "@astrojs/partytown": "^2.0.3",
     "@astrojs/rss": "^4.0.1",
-    "@astrojs/sitemap": "^3.0.4",
+    "@astrojs/sitemap": "~3.2.1",
     "@astrojs/svelte": "^5.0.3",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^6.1.1",
@@ -112,6 +112,11 @@
   "pnpm": {
     "overrides": {
       "mdast-util-from-markdown": "1.3.1"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "workerd"
+    ]
   }
 }
