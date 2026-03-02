@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import tailwind from '@astrojs/tailwind'
-import vercel from '@astrojs/vercel/serverless'
+import vercel from '@astrojs/vercel'
 import partytown from '@astrojs/partytown'
 import icon from 'astro-icon'
 
@@ -21,6 +21,5 @@ export default defineConfig({
     icon(),
     svelte(),
   ],
-  output: 'hybrid',
   adapter: vercel(),
 })
